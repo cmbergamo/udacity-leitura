@@ -4,7 +4,9 @@ const initialState = {
 	posts: []
 }
 
-const postReducer = ( currentState = initialState, action ) {
+export const reducer = ( currentState = initialState, action ) => {
+	let { posts } = currentState;
+
 	switch ( action.type ) {
 
 		case ADD_POST:
@@ -22,7 +24,6 @@ const postReducer = ( currentState = initialState, action ) {
 				deleted: false
 			}
 
-			let { posts } = currentState;
 			posts.push( newPost );
 
 			return {
@@ -30,7 +31,6 @@ const postReducer = ( currentState = initialState, action ) {
 			};
 		
 		case DEL_POST:
-			let { posts } = currentState;
 			posts = posts.filter( post => post.id !== action.id );
 			return { posts };
 
