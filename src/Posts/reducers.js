@@ -1,11 +1,12 @@
 import { ADD_POST, DEL_POST } from './actions'
 
 const initialState = {
-	posts: []
+	posts: [],
+	selectedCategory: ''
 }
 
 export const reducer = ( currentState = initialState, action ) => {
-	let { posts } = currentState;
+	let { posts, selectedCategory } = currentState;
 
 	switch ( action.type ) {
 
@@ -27,12 +28,13 @@ export const reducer = ( currentState = initialState, action ) => {
 			posts.push( newPost );
 
 			return {
-				posts
+				posts,
+				selectedCategory
 			};
 		
 		case DEL_POST:
 			posts = posts.filter( post => post.id !== action.id );
-			return { posts };
+			return { posts, selectedCategory };
 
 		default:
 			return currentState;

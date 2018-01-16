@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as ServerAPI from '../api/ServerAPI';
+import { connect } from 'react-redux';
+import { changeSelectedCategory } from './actions';
 import 'bulma/css/bulma.css';
 
 class Category extends Component{
@@ -8,7 +10,9 @@ class Category extends Component{
 	}
 
 	changeCategory = ( element ) => {
-		console.log( element.target.value );
+		const category = element.target.value;
+		this.props.change( { category } );
+		console.log( category );
 	}
 
 	componentDidMount() {
@@ -18,10 +22,11 @@ class Category extends Component{
 	}
 
 	render() {
+		console.log( this.props );
 
 		return (
 			<div className="select">
-				<select onChange={ this.changeCategory } defaultValue=''>
+				<select onChange={ this.changeCategory } defaultValue={ this.props.selectedCategory }>
 					<option value='' disabled>Selecione a Categoria</option>
 					{ this.state.categories.map( ( { name, path } ) => (
 						<option key={ path } value={ path } > { name } </option>
@@ -34,4 +39,14 @@ class Category extends Component{
 
 }
 
-export default Category;
+function mapStateToProps(currentState, props ) {
+	return  { selectedCategory: currentState.selectedCategory } ;
+}
+
+function mapDispatchToProps( dispatch ) {
+	return {
+		change: ( cat ) => dispatch( changeSelectedCategory( cat ) )
+	}
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )( Category );
