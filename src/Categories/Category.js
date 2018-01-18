@@ -12,7 +12,6 @@ class Category extends Component{
 	changeCategory = ( element ) => {
 		const category = element.target.value;
 		this.props.change( { category } );
-		console.log( category );
 	}
 
 	componentDidMount() {
@@ -22,7 +21,6 @@ class Category extends Component{
 	}
 
 	render() {
-		console.log( this.props );
 
 		return (
 			<div className="select">

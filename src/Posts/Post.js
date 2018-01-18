@@ -2,7 +2,6 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 
 function Post( props ) {
-	console.log( props );
 
 	return (
 		<div className="tile is-ancestor">

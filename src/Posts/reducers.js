@@ -5,7 +5,7 @@ const initialState = {
 	selectedCategory: ''
 }
 
-export const reducer = ( currentState = initialState, action ) => {
+export const postReducer = ( currentState = initialState, action ) => {
 	let { posts, selectedCategory } = currentState;
 
 	switch ( action.type ) {
