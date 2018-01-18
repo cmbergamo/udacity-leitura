@@ -3,6 +3,7 @@ import Post from './Posts/Post';
 import Category from './Categories/Category';
 import * as ServerAPI from './api/ServerAPI';
 import { connect } from 'react-redux';
+import { createPost } from './Posts/actions';
 import 'bulma/css/bulma.css';
 
 class App extends Component {
@@ -14,16 +15,14 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		ServerAPI.getCategorias().then( data =>
-			this.setState( state => {
-				return {
-					...state,
-					categories: data
-				}
-			}
-		 ) );
-
+		
 		 ServerAPI.getPosts().then( posts => {
+			console.log( posts );
+
+			posts.array.forEach( post => {
+				this.props.createPost( post );
+			});
+			
 			this.setState( state => {
 				return {
 					...state,
@@ -81,8 +80,20 @@ class App extends Component {
 	}
 }
 
-function mapStateToProps(currentState, ) {
-	return currentState.posts;
+function mapStateToProps(currentState, props ) {
+	const { posts, selectedCategory } = currentState;
+
+	posts.filter( ( post ) => {
+		return post.category === selectedCategory
+	});
+
+	return  { selectedCategory: currentState.selectedCategory } ;
+}
+
+function mapDispatchToProps( dispatch ) {
+	return {
+		createPost: ( post ) => dispatch( createPost( post ) )
+	}
 }
 
 export default connect()(App);

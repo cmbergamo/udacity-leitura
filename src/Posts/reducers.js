@@ -27,6 +27,8 @@ export const postReducer = ( currentState = initialState, action ) => {
 
 			posts.push( newPost );
 
+			console.log(posts);
+
 			return {
 				posts,
 				selectedCategory
