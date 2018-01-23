@@ -1,17 +1,25 @@
 export const ADD_POST = 'ADD_POST';
 
-export const createPost = ( { title, body, author, category } ) => (
-	{
+//export const createPost = ( { title, body, author, category } ) => {
+export const createPost = ( { id = 0, timestamp = Date.now() , title = '' , body = '' , author = '' , category = '' , voteScore = 1, deleted = false, commentCount = 1 } ) => {
+	
+	const postAction = {
 		type: ADD_POST,
-		timestamp: Date.now(),
+		id,
+		timestamp,
 		title,
 		body, //'Texto do post',
 		author,
 		category, //'pegar das existentes',
-		voteScore: 1,
-		deleted: false
+		voteScore,
+		deleted,
+		commentCount
 	}
-)
+
+	console.log( postAction );
+
+	return postAction;
+}
 
 export const DEL_POST = 'DEL_POST';
 

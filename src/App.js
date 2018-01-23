@@ -17,10 +17,10 @@ class App extends Component {
 	componentDidMount() {
 		
 		 ServerAPI.getPosts().then( posts => {
-			console.log( posts );
 
-			posts.array.forEach( post => {
-				this.props.createPost( post );
+			posts.forEach( post => {
+				//console.log( post );
+				this.props.initializePost( post );
 			});
 			
 			this.setState( state => {
@@ -65,10 +65,12 @@ class App extends Component {
 						<div className="App-intro">
 							{ this.state.posts.map( post => ( <p key={post.id} > {post.body}</p> ) ) }
 						</div>
-						<Post />
-						<Post />
-						<Post />
-						<Post />
+
+				   		{ this.props.posts.map( post => (
+							   <Post post={ post } />
+						   ) )
+						}
+
 					</div>
 
 					<div className="media-right">
@@ -81,19 +83,24 @@ class App extends Component {
 }
 
 function mapStateToProps(currentState, props ) {
-	const { posts, selectedCategory } = currentState;
+	if ( currentState  && currentState.posts ) {
+		const { posts, selectedCategory } = currentState;
 
-	posts.filter( ( post ) => {
-		return post.category === selectedCategory
-	});
+		const visiblePosts = posts.filter( ( post ) => {
+			return post.category === selectedCategory
+		});
 
-	return  { selectedCategory: currentState.selectedCategory } ;
+		return  { posts: visiblePosts,
+			selectedCategory: currentState.selectedCategory } ;
+	} else {
+		return { posts: [], selectedCategory: '' };
+	}
 }
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		createPost: ( post ) => dispatch( createPost( post ) )
+		initializePost: ( post ) => dispatch( createPost( post ) )
 	}
 }
 
-export default connect()(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

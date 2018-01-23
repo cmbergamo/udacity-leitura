@@ -1,44 +1,35 @@
 import { ADD_POST, DEL_POST } from './actions'
 
-const initialState = {
-	posts: [],
-	selectedCategory: ''
-}
+export const postReducer = ( currentstate = {} , action ) => {
 
-export const postReducer = ( currentState = initialState, action ) => {
-	let { posts, selectedCategory } = currentState;
+	console.log( currentstate );
+	let { posts = [], selectedCategory = '' } = currentstate;
 
 	switch ( action.type ) {
 
 		case ADD_POST:
-			const id = currentState.posts.length + 1;
-			const { title, body, author, category } = action;
-
-			let newPost = {
-				id,
-				timestamp: Date.now(),
-				title,
-				body,
-				author,
-				category,
-				voteScore: 1,
-				deleted: false
+					
+			const newPost = {
+				id: action.id,
+				timestamp: action.timestamp,
+				title: action.title,
+				body: action.body,
+				author: action.author,
+				category: action.category,
+				voteScore: action.voteScore,
+				deleted: action.deleted,
+				commentCount: action.commentCount
 			}
 
 			posts.push( newPost );
 
-			console.log(posts);
-
 			return {
 				posts,
 				selectedCategory
-			};
-		
-		case DEL_POST:
-			posts = posts.filter( post => post.id !== action.id );
-			return { posts, selectedCategory };
+			}
 
-		default:
-			return currentState;
+		default :
+			return currentstate;
 	}
+
 }
