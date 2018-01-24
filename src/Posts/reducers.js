@@ -2,7 +2,6 @@ import { ADD_POST, DEL_POST } from './actions'
 
 export const postReducer = ( currentstate = {} , action ) => {
 
-	console.log( currentstate );
 	let { posts = [], selectedCategory = '' } = currentstate;
 
 	switch ( action.type ) {
@@ -23,10 +22,16 @@ export const postReducer = ( currentstate = {} , action ) => {
 
 			posts.push( newPost );
 
-			return {
-				posts,
-				selectedCategory
-			}
+			const state = {
+				...currentstate,
+				posts
+				// posts,
+				// selectedCategory
+			};
+
+			console.log( " PostReducer: ", state);
+
+			return state
 
 		default :
 			return currentstate;

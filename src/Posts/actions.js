@@ -16,8 +16,6 @@ export const createPost = ( { id = 0, timestamp = Date.now() , title = '' , body
 		commentCount
 	}
 
-	console.log( postAction );
-
 	return postAction;
 }
 

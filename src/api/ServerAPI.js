@@ -23,9 +23,28 @@ export const getPosts = () =>
 	fetch(`${ api }/posts`, { headers })
 		.then(res => res.json())
 
-export const getPost = ( post )  =>
-	fetch(`${ api }/posts/${ post }`, { headers })
+export const getPostDetails = ( _id ) =>
+	fetch(`${ api }/posts/${ id }`, { headers })
 		.then(res => res.json())
+
+export const createPost = ( { id, timestamp, title, body, author, category }  ) =>
+	fetch(`${ api }/posts/`, {
+		method: 'POST',
+		headers: { ...headers,
+			'Content-Type': 'application/json' },
+		body: JSON.stringify( { id, timestamp, title, body, author, category } )
+	}).then(res => res.json())
+
+export const votePost = ( _id, _vote ) =>
+	fetch(`${ api }/posts/${ id }`, {
+		method: 'POST',
+		headers: { ...headers,
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify( { option: _vote > 0 ? 'upVote' : 'downVote' } )
+	}).then(res => res.json())
+
+// Continuar a api de:  Edit the details of an existing post
 
 export const update = (book, shelf) =>
 	fetch(`${ api }/books/${ book.id }`, {

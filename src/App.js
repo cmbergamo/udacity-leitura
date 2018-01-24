@@ -35,6 +35,7 @@ class App extends Component {
 	}
 
 	render() {
+
 		return (
 			<div className="container">
 				<section className="hero is-dark">
@@ -83,6 +84,7 @@ class App extends Component {
 }
 
 function mapStateToProps(currentState, props ) {
+
 	if ( currentState  && currentState.posts ) {
 		const { posts, selectedCategory } = currentState;
 
