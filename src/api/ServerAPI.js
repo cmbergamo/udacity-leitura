@@ -24,7 +24,7 @@ export const getPosts = () =>
 		.then(res => res.json())
 
 export const getPostDetails = ( _id ) =>
-	fetch(`${ api }/posts/${ id }`, { headers })
+	fetch(`${ api }/posts/${ _id }`, { headers })
 		.then(res => res.json())
 
 export const createPost = ( { id, timestamp, title, body, author, category }  ) =>
@@ -36,7 +36,7 @@ export const createPost = ( { id, timestamp, title, body, author, category }  ) 
 	}).then(res => res.json())
 
 export const votePost = ( _id, _vote ) =>
-	fetch(`${ api }/posts/${ id }`, {
+	fetch(`${ api }/posts/${ _id }`, {
 		method: 'POST',
 		headers: { ...headers,
 			'Content-Type': 'application/json'

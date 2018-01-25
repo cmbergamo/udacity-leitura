@@ -63,12 +63,9 @@ class App extends Component {
 					</div>
 					
 					<div className="media-content">
-						<div className="App-intro">
-							{ this.state.posts.map( post => ( <p key={post.id} > {post.body}</p> ) ) }
-						</div>
-
+						
 				   		{ this.props.posts.map( post => (
-							   <Post post={ post } />
+							   <Post post={ post }  key={ post.id } />
 						   ) )
 						}
 
@@ -85,18 +82,14 @@ class App extends Component {
 
 function mapStateToProps(currentState, props ) {
 
-	if ( currentState  && currentState.posts ) {
-		const { posts, selectedCategory } = currentState;
+	const { post = {} , category = {} } = currentState;
 
-		const visiblePosts = posts.filter( ( post ) => {
-			return post.category === selectedCategory
-		});
+	const visiblePosts = post.posts.filter( ( p ) => {
+		return p.category === category.category
+	});
 
-		return  { posts: visiblePosts,
-			selectedCategory: currentState.selectedCategory } ;
-	} else {
-		return { posts: [], selectedCategory: '' };
-	}
+	return  { posts: visiblePosts,
+		category } ;
 }
 
 function mapDispatchToProps( dispatch ) {

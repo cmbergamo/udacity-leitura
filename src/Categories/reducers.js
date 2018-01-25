@@ -1,21 +1,17 @@
 import { CHANGE_CATEGORY } from './actions'
 
 const initialState = {
-	posts: [],
-	selectedCategory: ''
+	category: ''
 }
 
-export const categoryReducer = ( currentState = initialState, action ) => {
+export const category = ( currentState = initialState, action ) => {
 
 	if ( action.type === CHANGE_CATEGORY ) {
 		const { category } = action;
 
 		const state = {
-			...currentState,
-			selectedCategory: category
+			category
 		}
-		
-		console.log( " CategoryReducer: ", state);
 
 		return state;
 
