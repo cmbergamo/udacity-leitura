@@ -44,6 +44,13 @@ export const votePost = ( _id, _vote ) =>
 		body: JSON.stringify( { option: _vote > 0 ? 'upVote' : 'downVote' } )
 	}).then(res => res.json())
 
+export const editPost = ( { id, title, body }  ) =>
+	fetch(`${ api }/posts/${ id }`, {
+		method: 'POST',
+		headers: { ...headers,
+			'Content-Type': 'application/json' },
+		body: JSON.stringify( { title, body } )
+	}).then(res => res.json())
 // Continuar a api de:  Edit the details of an existing post
 
 export const update = (book, shelf) =>

@@ -69,7 +69,7 @@ class App extends Component {
 					<div className="media-content">
 						
 				   		{ posts.map( post => (
-							   <Post post={ post }  key={ post.id } />
+							   <Post id={ post.id }  key={ post.id } />
 						   ) )
 						}
 

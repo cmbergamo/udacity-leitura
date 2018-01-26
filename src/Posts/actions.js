@@ -27,3 +27,16 @@ export const deletePost = ( id ) => (
 		id
 	}
 )
+
+export const EDIT_POST = 'EDIT_POST';
+
+export const editPost = ( { id, title, body } ) => {
+
+	return {
+		type: EDIT_POST,
+		id,
+		title,
+		body 
+	}
+
+}

@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { editPost } from './Posts/actions';
+import * as ServerAPI from '../api/ServerAPI'
+
 import 'bulma/css/bulma.css';
 import 'mdi/css/materialdesignicons.css'
 
 class Post extends Component{
+
+	vote = ( _id, _valor ) => {
+		ServerAPI.votePost( _id, _valor ).then( _post => console.log( _post ) );
+	}
+
+	edit = ( _id, _title, _body ) => {
+		ServerAPI.editPost( { id: _id, title: _title, body: _body } ).then( _post => console.log( _post ) );
+	}
 
 	render() {
 		const { post } = this.props;
@@ -22,30 +34,30 @@ class Post extends Component{
 						<p>{ post.body }</p>
 					</div>
 
-					<nav class="navbar is-light">
-					<div class="navbar-end">
-						<div class="navbar-item">
-							<div class="field is-grouped">
-								<p class="control">
-									<a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="http://localhost:4000" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=http://localhost:4000&amp;via=jgthms">
-										<span class="icon">
-											<i class="mdi mdi-thumb-up"></i>
+					<nav className="navbar is-light">
+					<div className="navbar-end">
+						<div className="navbar-item">
+							<div className="field is-grouped">
+								<p className="control">
+									<button className="bd-tw-button button" onClick={ () => this.vote( post.id, 1 ) } >
+										<span className="icon">
+											<i className="mdi mdi-thumb-up"></i>
 										</span>
-									</a>
+									</button>
 								</p>
-								<p class="control">
-									<a class="button is-danger" href="https://github.com/jgthms/bulma/archive/0.5.1.zip">
-										<span class="icon">
-											<i class="mdi mdi-thumb-down"></i>
+								<p className="control">
+									<button className="button is-danger" onClick={ () => this.vote( post.id, -1 ) } >
+										<span className="icon">
+											<i className="mdi mdi-thumb-down"></i>
 										</span>
-									</a>
+									</button>
 								</p>
-								<p class="control">
-									<a class="button" href="https://github.com/jgthms/bulma/archive/0.5.1.zip">
-										<span class="icon">
-											<i class="mdi mdi-delete"></i>
+								<p className="control">
+									<button className="button" >
+										<span className="icon">
+											<i className="mdi mdi-delete"></i>
 										</span>
-									</a>
+									</button>
 								</p>
 							</div>
 						</div>
@@ -60,6 +72,17 @@ class Post extends Component{
 
 }
 
+function mapStateToProps( state, currentProps ) {
+	const posts = state.post.posts;
 
+	const visiblePost = posts.filter( p => p.id === currentProps.id );
+	return { post: visiblePost[0] };
+}
 
-export default Post;
+function mapDispatchToProps( dispatch ) {
+	return {
+		editPost = (post) => dispatch( editPost( post ) )
+	}
+}
+
+export default connect(mapStateToProps)(Post);
