@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editPost } from './Posts/actions';
+import { editPost } from './actions';
 import * as ServerAPI from '../api/ServerAPI'
 
 import 'bulma/css/bulma.css';
@@ -81,8 +81,8 @@ function mapStateToProps( state, currentProps ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		editPost = (post) => dispatch( editPost( post ) )
+		editPost: (post) => dispatch( editPost( post ) )
 	}
 }
 
-export default connect(mapStateToProps)(Post);
+export default connect( mapStateToProps, mapDispatchToProps )(Post);
