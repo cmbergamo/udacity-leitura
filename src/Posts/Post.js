@@ -35,33 +35,46 @@ class Post extends Component{
 					</div>
 
 					<nav className="navbar is-light">
-					<div className="navbar-end">
-						<div className="navbar-item">
-							<div className="field is-grouped">
-								<p className="control">
-									<button className="bd-tw-button button" onClick={ () => this.vote( post.id, 1 ) } >
-										<span className="icon">
-											<i className="mdi mdi-thumb-up"></i>
-										</span>
-									</button>
-								</p>
-								<p className="control">
-									<button className="button is-danger" onClick={ () => this.vote( post.id, -1 ) } >
-										<span className="icon">
-											<i className="mdi mdi-thumb-down"></i>
-										</span>
-									</button>
-								</p>
-								<p className="control">
-									<button className="button" >
-										<span className="icon">
-											<i className="mdi mdi-delete"></i>
-										</span>
-									</button>
-								</p>
+						<div className="navbar-start">
+							<div className="navbar-item">
+								<div className="field is-grouped">
+									<p className="control">
+										<button className="bd-tw-button button" onClick={ () => this.vote( post.id, 1 ) } >
+											<span className="icon">
+												<i className="mdi mdi-message-text"></i>
+											</span>
+										</button>
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
+						<div className="navbar-end">
+							<div className="navbar-item">
+								<div className="field is-grouped">
+									<p className="control">
+										<button className="bd-tw-button button" onClick={ () => this.vote( post.id, 1 ) } >
+											<span className="icon">
+												<i className="mdi mdi-thumb-up"></i>
+											</span>
+										</button>
+									</p>
+									<p className="control">
+										<button className="button is-danger" onClick={ () => this.vote( post.id, -1 ) } >
+											<span className="icon">
+												<i className="mdi mdi-thumb-down"></i>
+											</span>
+										</button>
+									</p>
+									<p className="control">
+										<button className="button" >
+											<span className="icon">
+												<i className="mdi mdi-delete"></i>
+											</span>
+										</button>
+									</p>
+								</div>
+							</div>
+						</div>
 
 					</nav>
 				</article>
