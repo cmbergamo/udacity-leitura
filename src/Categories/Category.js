@@ -25,7 +25,7 @@ class Category extends Component{
 		return (
 			<div className="select">
 				<select onChange={ this.changeCategory } defaultValue={ this.props.selectedCategory }>
-					<option value='' disabled>Selecione a Categoria</option>
+					<option value='' className="has-text-weight-bold">Todas</option>
 					{ this.state.categories.map( ( { name, path } ) => (
 						<option key={ path } value={ path } > { name } </option>
 					) ) }

@@ -63,6 +63,14 @@ export const update = (book, shelf) =>
 		body: JSON.stringify({ shelf })
 	}).then(res => res.json())
 
+export const getComentarios = ( post ) =>
+	fetch(`${ api }/posts/${ post }/comments`, {
+		headers: {
+			...headers,
+			'Content-Type': 'application/json'
+		},
+	}).then(res => res.json())
+
 export const search = (query, maxResults) =>
 	fetch(`${ api }/search`, {
 		method: 'POST',

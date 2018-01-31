@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Post from './Posts/Post';
 import Category from './Categories/Category';
 import FormPost from './Posts/FormPost';
+import Comments from './Comments/Comments';
 import * as ServerAPI from './api/ServerAPI';
 import { connect } from 'react-redux';
 import { createPost } from './Posts/actions';
@@ -15,6 +16,11 @@ class App extends Component {
 		categories: [],
 		posts: [],
 		order: 'voteScore' // Pode ser 'voteScore' ou 'creationDate'
+	}
+
+	showModalPost() {
+		const modal = document.getElementById("modal-post");
+		modal.setAttribute( "class", modal.getAttribute("class") + " is-active" );
 	}
 
 	componentDidMount() {
@@ -76,7 +82,7 @@ class App extends Component {
 					</div>
 
 					<div className="media-right">
-						<button className="add">
+						<button className="button is-medium modal-button" data-target="modal-post" onClick={this.showModalPost} >
 							<span className="icon is-small">
 								<i className='mdi mdi-plus-circle'></i>
 							</span>
@@ -85,6 +91,7 @@ class App extends Component {
 				</div>
 
 				<FormPost />
+				<Comments />
 			</div>
 		);
 	}
