@@ -4,7 +4,7 @@ import 'mdi/css/materialdesignicons.css'
 
 class FormPost extends Component {
 
-	closeModalPost() {
+	closeModalPost = () => {
 		const modal = document.getElementById("modal-post");
 
 		let classes = modal.getAttribute("class").indexOf( " is-active" );
@@ -18,7 +18,7 @@ class FormPost extends Component {
 				<div className="modal-background"></div>
 				<div className="modal-card">
 					<header className="modal-card-head">
-						<p className="modal-card-title">Modal title</p>
+						<p className="modal-card-title">Novo Post</p>
 						<button className="delete" aria-label="close" onClick={ this.closeModalPost }></button>
 					</header>
 					<section className="modal-card-body">
@@ -57,7 +57,7 @@ class FormPost extends Component {
 					</section>
 					<footer className="modal-card-foot">
 						<button className="button is-success">Criar</button>
-						<button className="button">Cancelar</button>
+						<button className="button" onClick={ this.closeModalPost }>Cancelar</button>
 					</footer>
 				</div>
 			</div>

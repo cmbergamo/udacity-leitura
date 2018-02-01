@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Post from './Posts/Post';
 import Category from './Categories/Category';
 import FormPost from './Posts/FormPost';
-import Comments from './Comments/Comments';
+
 import * as ServerAPI from './api/ServerAPI';
 import { connect } from 'react-redux';
 import { createPost } from './Posts/actions';
@@ -91,7 +91,6 @@ class App extends Component {
 				</div>
 
 				<FormPost />
-				<Comments />
 			</div>
 		);
 	}

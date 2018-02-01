@@ -4,12 +4,14 @@ import * as ServerAPI from '../api/ServerAPI';
 
 class Comments extends Component {
 
-	carregaComentario = () => {
-		ServerAPI.getComentarios("8xf0y6ziyjabvozdd253nd").then( resp => console.log( resp ) );
-	}
-
 	render () {
-		return ( <button className="button" onClick={ this.carregaComentario } > teste</button> );
+		console.log( "Comments" );
+		return ( 
+				<div className="level-item has-text-justified" >
+					<span> { this.props.comment.body } </span>
+					<button className="button" /* onClick={ () => this.carregaComentario( "8xf0y6ziyjabvozdd253nd" ) } */ > teste</button>
+				</div>
+			);
 	}
 	
 }

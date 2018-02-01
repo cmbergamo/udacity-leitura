@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Comments from '../Comments/Comments';
 import { connect } from 'react-redux';
 import { editPost } from './actions';
 import * as ServerAPI from '../api/ServerAPI'
@@ -14,6 +15,14 @@ class Post extends Component{
 
 	edit = ( _id, _title, _body ) => {
 		ServerAPI.editPost( { id: _id, title: _title, body: _body } ).then( _post => console.log( _post ) );
+	}
+
+	carregaComentario = ( _id ) => {
+		ServerAPI.getComentarios( _id ).then( resp => {
+				console.log( resp.map( comment => ( <Comments comment={ comment } /> ) ) );
+				//document.getElementById( _id + "-comments").children = resp.map( comment => ( <Comments comment={ comment } /> ) ) ;
+			}
+		 );
 	}
 
 	render() {
@@ -39,7 +48,7 @@ class Post extends Component{
 							<div className="navbar-item">
 								<div className="field is-grouped">
 									<p className="control">
-										<button className="bd-tw-button button" onClick={ () => this.vote( post.id, 1 ) } >
+										<button className="bd-tw-button button" onClick={ () => this.carregaComentario( post.id, 1 ) } >
 											<span className="icon">
 												<i className="mdi mdi-message-text"></i>
 											</span>
@@ -77,6 +86,8 @@ class Post extends Component{
 						</div>
 
 					</nav>
+					<div className="level" id={ `${ post.id }-comments` }>
+					</div>
 				</article>
 
 			</div>
