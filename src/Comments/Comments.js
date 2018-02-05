@@ -4,14 +4,24 @@ import * as ServerAPI from '../api/ServerAPI';
 
 class Comments extends Component {
 
+	state = {
+		comments: []
+	}
+
+	componentDidMount () {
+		ServerAPI.getComentarios( this.props.post ).then( resp => {
+				this.setState( { comments: resp } );
+			}
+		);
+	}
+
 	render () {
-		console.log( "Comments" );
-		return ( 
-				<div className="level-item has-text-justified" >
-					<span> { this.props.comment.body } </span>
+		return this.state.comments.length > 0 && this.state.comments.map( comment => (
+				<div key={ comment.id } className="level-item has-text-justified">
+					<span> { comment.body } </span>
 					<button className="button" /* onClick={ () => this.carregaComentario( "8xf0y6ziyjabvozdd253nd" ) } */ > teste</button>
 				</div>
-			);
+			) ) ;
 	}
 	
 }

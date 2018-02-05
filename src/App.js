@@ -13,8 +13,6 @@ import 'mdi/css/materialdesignicons.css'
 class App extends Component {
 
 	state = {
-		categories: [],
-		posts: [],
 		order: 'voteScore' // Pode ser 'voteScore' ou 'creationDate'
 	}
 
@@ -25,7 +23,7 @@ class App extends Component {
 
 	componentDidMount() {
 		
-		 ServerAPI.getPosts().then( posts => {
+		ServerAPI.getPosts().then( posts => {
 
 			posts.forEach( post => {
 				//console.log( post );
@@ -39,7 +37,7 @@ class App extends Component {
 				}
 			}
 			)
-		 } );
+		} );
 
 	}
 
@@ -96,11 +94,9 @@ class App extends Component {
 	}
 }
 
-function mapStateToProps(currentState, props ) {
+function mapStateToProps( currentState, props ) {
 
 	const { post = {} , category = {} } = currentState;
-
-	
 
 	if ( category && category.category === '' ) {
 

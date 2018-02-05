@@ -1,4 +1,4 @@
-import { ADD_POST, DEL_POST, EDIT_POST } from './actions'
+import { ADD_POST, EDIT_POST } from './actions'
 import { editPost } from '../api/ServerAPI';
 
 export const post = ( currentstate = { posts: []} , action ) => {

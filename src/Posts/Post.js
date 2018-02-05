@@ -17,12 +17,15 @@ class Post extends Component{
 		ServerAPI.editPost( { id: _id, title: _title, body: _body } ).then( _post => console.log( _post ) );
 	}
 
-	carregaComentario = ( _id ) => {
-		ServerAPI.getComentarios( _id ).then( resp => {
-				console.log( resp.map( comment => ( <Comments comment={ comment } /> ) ) );
-				//document.getElementById( _id + "-comments").children = resp.map( comment => ( <Comments comment={ comment } /> ) ) ;
-			}
-		 );
+	showComments = ( _element ) => {
+		
+		const classe = _element.getAttribute( "class" );
+		const posicao = classe.indexOf(" is-hidden");
+
+		if ( posicao >= 0 )
+			_element.setAttribute( "class", classe.substring( 0, classe.indexOf(" is-hidden") ) );
+		else
+			_element.setAttribute( "class", classe + " is-hidden" );
 	}
 
 	render() {
@@ -48,7 +51,7 @@ class Post extends Component{
 							<div className="navbar-item">
 								<div className="field is-grouped">
 									<p className="control">
-										<button className="bd-tw-button button" onClick={ () => this.carregaComentario( post.id, 1 ) } >
+										<button className="bd-tw-button button" onClick={ () => this.showComments( document.getElementById( `${ post.id }-comments` ) ) } >
 											<span className="icon">
 												<i className="mdi mdi-message-text"></i>
 											</span>
@@ -86,7 +89,8 @@ class Post extends Component{
 						</div>
 
 					</nav>
-					<div className="level" id={ `${ post.id }-comments` }>
+					<div className="level is-hidden" id={ `${ post.id }-comments` } >
+						<Comments post={ post.id } />
 					</div>
 				</article>
 
