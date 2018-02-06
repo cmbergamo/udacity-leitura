@@ -10,8 +10,7 @@ class Category extends Component{
 	}
 
 	changeCategory = ( element ) => {
-		const category = element.target.value;
-		this.props.change( { category } );
+		this.props.change( element.target.value );
 	}
 
 	componentDidMount() {
@@ -38,7 +37,7 @@ class Category extends Component{
 }
 
 function mapStateToProps(currentState, props ) {
-	return  { selectedCategory: currentState.selectedCategory } ;
+	return  { selectedCategory: currentState } ;
 }
 
 function mapDispatchToProps( dispatch ) {

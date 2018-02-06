@@ -3,8 +3,7 @@ export const ADD_POST = 'ADD_POST';
 //export const createPost = ( { title, body, author, category } ) => {
 export const createPost = ( { id = 0, timestamp = Date.now() , title = '' , body = '' , author = '' , category = '' , voteScore = 1, deleted = false, commentCount = 1 } ) => {
 	
-	const postAction = {
-		type: ADD_POST,
+	return { type: ADD_POST,
 		id,
 		timestamp,
 		title,
@@ -14,9 +13,7 @@ export const createPost = ( { id = 0, timestamp = Date.now() , title = '' , body
 		voteScore,
 		deleted,
 		commentCount
-	}
-
-	return postAction;
+	};
 }
 
 export const DEL_POST = 'DEL_POST';
@@ -37,6 +34,17 @@ export const editPost = ( { id, title, body } ) => {
 		id,
 		title,
 		body 
+	}
+
+}
+
+export const LOAD_ALL = 'LOAD_ALL';
+
+export const loadPosts = ( posts ) => {
+	
+	return {
+		type: LOAD_ALL,
+		posts
 	}
 
 }

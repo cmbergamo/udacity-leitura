@@ -100,8 +100,7 @@ class Post extends Component{
 
 }
 
-function mapStateToProps( state, currentProps ) {
-	const posts = state.post.posts;
+function mapStateToProps( { posts }, currentProps ) {
 
 	const visiblePost = posts.filter( p => p.id === currentProps.id );
 	return { post: visiblePost[0] };

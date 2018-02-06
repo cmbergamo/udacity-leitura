@@ -5,17 +5,17 @@ import FormPost from './Posts/FormPost';
 
 import * as ServerAPI from './api/ServerAPI';
 import { connect } from 'react-redux';
-import { createPost } from './Posts/actions';
+import { loadPosts } from './Posts/actions';
 import sortBy from 'sort-by';
 import 'bulma/css/bulma.css';
 import 'mdi/css/materialdesignicons.css'
 
 class App extends Component {
 
-	state = {
+	/* state = {
 		order: 'voteScore' // Pode ser 'voteScore' ou 'creationDate'
 	}
-
+ */
 	showModalPost() {
 		const modal = document.getElementById("modal-post");
 		modal.setAttribute( "class", modal.getAttribute("class") + " is-active" );
@@ -25,27 +25,13 @@ class App extends Component {
 		
 		ServerAPI.getPosts().then( posts => {
 
-			posts.forEach( post => {
-				//console.log( post );
-				this.props.initializePost( post );
-			});
+				this.props.initializePost( posts );
 			
-			this.setState( state => {
-				return {
-					...state,
-					posts
-				}
-			}
-			)
 		} );
 
 	}
 
 	render() {
-		let posts = [];
-
-		if ( this.props.posts )
-			posts = this.props.posts.sort( sortBy('voteScore') );
 
 		return (
 			<div className="container">
@@ -55,9 +41,6 @@ class App extends Component {
 							<h1 className="title">
 								Projeto Leitura
 							</h1>
-							<h2 className="subtitle">
-								Hero subtitle
-							</h2>
 						</div>
 					</div>
 				</section>
@@ -71,10 +54,12 @@ class App extends Component {
 					</div>
 					
 					<div className="media-content">
-						
-				   		{ posts.map( post => (
+				   		{ this.props.posts && this.props.posts.map( post => {
+							   console.log( post );
+
+							   return (
 							   <Post id={ post.id }  key={ post.id } />
-						   ) )
+						   ) } )
 						}
 
 					</div>
@@ -96,27 +81,29 @@ class App extends Component {
 
 function mapStateToProps( currentState, props ) {
 
-	const { post = {} , category = {} } = currentState;
+	const { posts = [] , category = '' } = currentState;
 
-	if ( category && category.category === '' ) {
+	if ( category === undefined || category === '' ) {
+		posts.sort( sortBy('voteScore') );
 
-		return  { posts: post.posts, category } ;
+		return  { posts , category } ;
 
 	} else {
 
-		const visiblePosts = post.posts.filter( ( p ) => {
-			return p.category === category.category
+		const visiblePosts = posts.filter( ( p ) => {
+			return p.category === category
 		});
 		
+		visiblePosts.sort( sortBy('voteScore') );
 
-		return  { posts: visiblePosts,
+		return  { posts: visiblePosts ,
 			category } ;
 	}
 }
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		initializePost: ( post ) => dispatch( createPost( post ) )
+		initializePost: ( posts ) => dispatch( loadPosts( posts ) )
 	}
 }
 

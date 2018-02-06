@@ -1,10 +1,7 @@
-import { ADD_POST, EDIT_POST } from './actions'
+import { ADD_POST, EDIT_POST, LOAD_ALL, DEL_POST } from './actions'
 import { editPost } from '../api/ServerAPI';
 
-export const post = ( currentstate = { posts: []} , action ) => {
-
-	let { posts } = currentstate;
-
+export const posts = ( currentstate = [] , action ) => {
 	switch ( action.type ) {
 
 		case ADD_POST:
@@ -21,26 +18,30 @@ export const post = ( currentstate = { posts: []} , action ) => {
 				commentCount: action.commentCount
 			}
 
-			posts.push( newPost );
+			currentstate.push( newPost );
 
-			const state = {
-				posts
-			};
-
-			return state
+			return currentstate;
 
 		case EDIT_POST:
 			
-			const novoArray = posts.filter( p => p.id !== action.id );
-			const editedPost = posts.filter( p => p.id === action.id);
+			const novoArray = currentstate.filter( p => p.id !== action.id );
+			const editedPost = currentstate.filter( p => p.id === action.id);
 
 			editedPost.title = action.title;
 			editedPost.body = action.body;
 
 			novoArray.push( editPost );
 
-			return { posts: novoArray }
+			return novoArray;
+
+		case LOAD_ALL:
 			
+			Array.prototype.push.apply(currentstate, action.posts);
+			return currentstate;
+			
+		case DEL_POST:
+			
+			return currentstate.filter( post => post.id !== action.id );
 
 		default :
 			return currentstate;
