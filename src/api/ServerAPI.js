@@ -23,17 +23,17 @@ export const getPosts = () =>
 	fetch(`${ api }/posts`, { headers })
 		.then(res => res.json())
 
+export const createPost = ( { id, timestamp, title, body, author, category }  ) =>
+	fetch(`${ api }/posts/`, {
+			method: 'POST',
+			headers: { ...headers,
+				'Content-Type': 'application/json' },
+			body: JSON.stringify( { id, timestamp, title, body, author, category } )
+		}).then(res => res.json())
+
 export const getPostDetails = ( _id ) =>
 	fetch(`${ api }/posts/${ _id }`, { headers })
 		.then(res => res.json())
-
-export const createPost = ( { id, timestamp, title, body, author, category }  ) =>
-	fetch(`${ api }/posts/`, {
-		method: 'POST',
-		headers: { ...headers,
-			'Content-Type': 'application/json' },
-		body: JSON.stringify( { id, timestamp, title, body, author, category } )
-	}).then(res => res.json())
 
 export const votePost = ( _id, _vote ) =>
 	fetch(`${ api }/posts/${ _id }`, {
@@ -46,24 +46,20 @@ export const votePost = ( _id, _vote ) =>
 
 export const editPost = ( { id, title, body }  ) =>
 	fetch(`${ api }/posts/${ id }`, {
-		method: 'POST',
+		method: 'PUT',
 		headers: { ...headers,
 			'Content-Type': 'application/json' },
 		body: JSON.stringify( { title, body } )
 	}).then(res => res.json())
-// Continuar a api de:  Edit the details of an existing post
 
-export const update = (book, shelf) =>
-	fetch(`${ api }/books/${ book.id }`, {
-		method: 'PUT',
-		headers: {
-			...headers,
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ shelf })
+export const deletePost = ( id ) =>
+	fetch(`${ api }/posts/${ id }`, {
+		method: 'DELETE',
+		headers: { ...headers,
+			'Content-Type': 'application/json' }
 	}).then(res => res.json())
 
-export const getComentarios = ( post ) =>
+export const getCommentsFromPost = ( post ) =>
 	fetch(`${ api }/posts/${ post }/comments`, {
 		headers: {
 			...headers,
@@ -71,13 +67,40 @@ export const getComentarios = ( post ) =>
 		},
 	}).then(res => res.json())
 
-export const search = (query, maxResults) =>
-	fetch(`${ api }/search`, {
+export const addComment = ( { id, timestamp, body, author, parentId } ) =>
+	fetch(`${ api }/comments`, {
 		method: 'POST',
 		headers: {
 			...headers,
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({ query, maxResults })
+		body: JSON.stringify( { id, timestamp, body, auth, parentId } )
 	}).then(res => res.json())
-		.then(data => data.books)
+
+export const getCommentDetails = ( _id ) =>
+	fetch(`${ api }/comments/${ _id }`, { headers })
+		.then(res => res.json())
+
+export const voteComment = ( _id, _vote ) =>
+	fetch(`${ api }/comments/${ _id }`, {
+			method: 'POST',
+			headers: { ...headers,
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify( { option: _vote > 0 ? 'upVote' : 'downVote' } )
+		}).then(res => res.json())
+
+export const editComment = ( { id, timestamp, body }  ) =>
+	fetch(`${ api }/comments/${ id }`, {
+		method: 'PUT',
+		headers: { ...headers,
+			'Content-Type': 'application/json' },
+		body: JSON.stringify( { timestamp, body } )
+	}).then(res => res.json())
+
+export const deleteComment = ( id ) =>
+	fetch(`${ api }/comments/${ id }`, {
+		method: 'DELETE',
+		headers: { ...headers,
+			'Content-Type': 'application/json' }
+	}).then(res => res.json())
