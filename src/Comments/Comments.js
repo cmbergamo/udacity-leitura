@@ -9,7 +9,7 @@ class Comments extends Component {
 	}
 
 	componentDidMount () {
-		ServerAPI.getComentarios( this.props.post ).then( resp => {
+		ServerAPI.getCommentsFromPost( this.props.post ).then( resp => {
 				this.setState( { comments: resp } );
 			}
 		);

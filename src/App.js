@@ -4,9 +4,11 @@ import Category from './Categories/Category';
 import FormPost from './Posts/FormPost';
 
 import * as ServerAPI from './api/ServerAPI';
+import sortBy from 'sort-by';
+
 import { connect } from 'react-redux';
 import { loadPosts } from './Posts/actions';
-import sortBy from 'sort-by';
+
 import 'bulma/css/bulma.css';
 import 'mdi/css/materialdesignicons.css'
 
@@ -45,8 +47,7 @@ class App extends Component {
 					</div>
 				</section>
 				<div className="notification">
-					Selecione a categoria: 
-					<Category />
+					<Category todas={ true } />
 				</div>
 				
 				<div  className="media">

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import * as ServerAPI from '../api/ServerAPI';
+
 import { connect } from 'react-redux';
 import { changeSelectedCategory } from './actions';
+
 import 'bulma/css/bulma.css';
 
 class Category extends Component{
@@ -22,13 +24,18 @@ class Category extends Component{
 	render() {
 
 		return (
-			<div className="select">
-				<select onChange={ this.changeCategory } defaultValue={ this.props.selectedCategory }>
-					<option value='' className="has-text-weight-bold">Todas</option>
-					{ this.state.categories.map( ( { name, path } ) => (
-						<option key={ path } value={ path } > { name } </option>
-					) ) }
-				</select>
+			<div className="field">
+				<div className="control">
+					<label className="label">Selecione a Categoria: </label>
+					<div className="select">
+						<select name="category" onChange={ this.changeCategory } defaultValue={ this.props.selectedCategory }>
+							{ this.props.todas && (	<option value='' className="has-text-weight-bold">Todas</option> ) }
+							{ this.state.categories.map( ( { name, path } ) => (
+								<option key={ path } value={ path } defaultChecked={ path === this.props.selectedCategory } > { name } </option>
+							) ) }
+						</select>
+					</div>
+				</div>
 			</div>
 		)
 
