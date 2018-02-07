@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Comments from '../Comments/Comments';
+import FormComment from '../Comments/FormComment';
 
 import { connect } from 'react-redux';
 import { editPost, deletePost } from './actions';
@@ -99,6 +100,9 @@ class Post extends Component{
 					</nav>
 					<div className="level is-hidden" id={ `${ post.id }-comments` } >
 						<Comments post={ post.id } />
+					</div>
+					<div>
+						<FormComment />	
 					</div>
 				</article>
 
