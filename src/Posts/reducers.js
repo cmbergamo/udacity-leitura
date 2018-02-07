@@ -36,11 +36,11 @@ export const posts = ( currentstate = [] , action ) => {
 
 		case LOAD_ALL:
 			
-			Array.prototype.push.apply(currentstate, action.posts);
-			return currentstate;
+			const novosPosts = currentstate.concat(action.posts);
+			return novosPosts;
 			
 		case DEL_POST:
-			
+
 			return currentstate.filter( post => post.id !== action.id );
 
 		default :

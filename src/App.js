@@ -55,14 +55,7 @@ class App extends Component {
 					</div>
 					
 					<div className="media-content">
-				   		{ this.props.posts && this.props.posts.map( post => {
-							   console.log( post );
-
-							   return (
-							   <Post id={ post.id }  key={ post.id } />
-						   ) } )
-						}
-
+				   		{ this.props.posts && this.props.posts.map( post => ( <Post id={ post.id }  key={ post.id } /> ) ) }
 					</div>
 
 					<div className="media-right">
