@@ -18,12 +18,12 @@ export const createPost = ( { id = 0, timestamp = Date.now() , title = '' , body
 
 export const DEL_POST = 'DEL_POST';
 
-export const deletePost = ( id ) => (
-	{
+export const deletePost = ( id ) => {
+	return {
 		type: DEL_POST,
 		id
 	}
-)
+}
 
 export const EDIT_POST = 'EDIT_POST';
 

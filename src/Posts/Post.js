@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Comments from '../Comments/Comments';
+
 import { connect } from 'react-redux';
-import { editPost } from './actions';
+import { editPost, deletePost } from './actions';
+
 import * as ServerAPI from '../api/ServerAPI'
 
 import 'bulma/css/bulma.css';
@@ -15,6 +17,12 @@ class Post extends Component{
 
 	edit = ( _id, _title, _body ) => {
 		ServerAPI.editPost( { id: _id, title: _title, body: _body } ).then( _post => console.log( _post ) );
+	}
+
+	delete = ( _id ) => {
+		ServerAPI.deletePost( _id ).then( _post => {
+			this.props.deletePost( _post.id );
+		} );
 	}
 
 	showComments = ( _element ) => {
@@ -78,7 +86,7 @@ class Post extends Component{
 										</button>
 									</p>
 									<p className="control">
-										<button className="button" >
+										<button className="button" onClick={ () => this.delete( post.id ) } >
 											<span className="icon">
 												<i className="mdi mdi-delete"></i>
 											</span>
@@ -108,7 +116,8 @@ function mapStateToProps( { posts }, currentProps ) {
 
 function mapDispatchToProps( dispatch ) {
 	return {
-		editPost: (post) => dispatch( editPost( post ) )
+		editPost: (post) => dispatch( editPost( post ) ),
+		deletePost: (post) => dispatch( deletePost( post ) )
 	}
 }
 
