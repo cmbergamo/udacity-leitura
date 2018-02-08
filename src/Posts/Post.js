@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Comments from '../Comments/Comments';
 import FormComment from '../Comments/FormComment';
+import ControlPainel from '../utils/ControlPainel';
 
 import { connect } from 'react-redux';
 import { editPost, deletePost } from './actions';
@@ -58,56 +59,16 @@ class Post extends Component{
 						<p>{ post.body }</p>
 					</div>
 
-					<nav className="navbar is-light">
-						<div className="navbar-start">
-							<div className="navbar-item">
-								<div className="field is-grouped">
-									<p className="control">
-										<button className="bd-tw-button button" onClick={ () => this.showHidde( document.getElementById( `${ post.id }-comments` ) ) } >
-											<span className="icon">
-												<i className="mdi mdi-message-text"></i>
-											</span>
-										</button>
-									</p>
-									<p className="control">
-										<button className="bd-tw-button button" onClick={ () => this.showHidde( document.getElementById( `${ post.id }-comment` ) ) } >
-											<span className="icon">
-												<i className="mdi mdi-message-plus"></i>
-											</span>
-										</button>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div className="navbar-end">
-							<div className="navbar-item">
-								<div className="field is-grouped">
-									<p className="control">
-										<button className="bd-tw-button button" onClick={ () => this.vote( post.id, 1 ) } >
-											<span className="icon">
-												<i className="mdi mdi-thumb-up"></i>
-											</span>
-										</button>
-									</p>
-									<p className="control">
-										<button className="button is-danger" onClick={ () => this.vote( post.id, -1 ) } >
-											<span className="icon">
-												<i className="mdi mdi-thumb-down"></i>
-											</span>
-										</button>
-									</p>
-									<p className="control">
-										<button className="button" onClick={ () => this.delete( post.id ) } >
-											<span className="icon">
-												<i className="mdi mdi-delete"></i>
-											</span>
-										</button>
-									</p>
-								</div>
-							</div>
-						</div>
-
-					</nav>
+					<ControlPainel functions={ 
+							{ 
+								message: () => this.showHidde( document.getElementById( `${ post.id }-comments` ) ),
+								messagePlus: () => this.showHidde( document.getElementById( `${ post.id }-comment` ) ),
+								thumbUp: () => this.vote( post.id, 1 ),
+								thumbDown: () => this.vote( post.id, -1 ),
+								del: () => this.delete( post.id )
+							}
+						} />
+					
 					<div className="level is-hidden" id={ `${ post.id }-comments` } >
 						<Comments post={ post.id } />
 					</div>

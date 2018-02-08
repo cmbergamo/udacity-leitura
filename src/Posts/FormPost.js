@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Category from '../Categories/Category';
 
 import * as ServerAPI from '../api/ServerAPI';
-import { generateUUID } from '../utils';
+import { generateUUID } from '../utils/utils';
 
 import { connect } from 'react-redux';
 import { createPost } from './actions';

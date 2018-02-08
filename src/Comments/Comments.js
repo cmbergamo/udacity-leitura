@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ControlPainel from '../utils/ControlPainel';
 
 import * as ServerAPI from '../api/ServerAPI';
 
@@ -17,9 +18,17 @@ class Comments extends Component {
 
 	render () {
 		return this.state.comments.length > 0 && this.state.comments.map( comment => (
-				<div key={ comment.id } className="level-item has-text-justified">
-					<span> { comment.body } </span>
-					<button className="button" /* onClick={ () => this.carregaComentario( "8xf0y6ziyjabvozdd253nd" ) } */ > teste</button>
+				<div class="columns">
+					<div key={ comment.id } className="column has-text-justified">
+						<span> { comment.body } </span>
+						<ControlPainel functions={ 
+								{ 
+									thumbUp: () => this.vote( comment.id, 1 ),
+									thumbDown: () => this.vote( comment.id, -1 ),
+									del: () => this.delete( comment.id )
+								}
+							} />
+					</div>
 				</div>
 			) ) ;
 	}
