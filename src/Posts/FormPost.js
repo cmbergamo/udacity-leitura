@@ -13,16 +13,10 @@ import 'mdi/css/materialdesignicons.css'
 class FormPost extends Component {
 
 	closeModalPost = () => {
-		const modal = document.getElementById("modal-post");
-
-		let classes = modal.getAttribute("class").indexOf( " is-active" );
-
-		modal.setAttribute( "class", modal.getAttribute("class").substring( 0, classes ) );
+		document.getElementById("modal-post").classList.remove( "is-active" );
 	}
 
 	addPost = () => {
-		console.log( document.getElementById("criaPost").classList.add("is-loading") );
-		
 		const form = document.getElementsByTagName("form")[0];
 		
 		let obj = { }
@@ -36,7 +30,6 @@ class FormPost extends Component {
 
 		ServerAPI.createPost( obj ).then( resp => {
 			this.props.dispatch( createPost( resp ) );
-			console.log( resp )
 			document.getElementById("criaPost").classList.remove("is-loading");
 		} );
 	}

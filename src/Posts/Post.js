@@ -26,15 +26,18 @@ class Post extends Component{
 		} );
 	}
 
-	showComments = ( _element ) => {
-		
-		const classe = _element.getAttribute( "class" );
-		const posicao = classe.indexOf(" is-hidden");
+	showHidde = ( _element ) => {
 
-		if ( posicao >= 0 )
-			_element.setAttribute( "class", classe.substring( 0, classe.indexOf(" is-hidden") ) );
+		if ( _element.classList.contains( "is-hidden" ) )
+			_element.classList.remove( "is-hidden" )
 		else
-			_element.setAttribute( "class", classe + " is-hidden" );
+			_element.classList.add( "is-hidden" )
+
+	}
+
+	addComment = ( _element ) => {
+
+		
 	}
 
 	render() {
@@ -60,9 +63,16 @@ class Post extends Component{
 							<div className="navbar-item">
 								<div className="field is-grouped">
 									<p className="control">
-										<button className="bd-tw-button button" onClick={ () => this.showComments( document.getElementById( `${ post.id }-comments` ) ) } >
+										<button className="bd-tw-button button" onClick={ () => this.showHidde( document.getElementById( `${ post.id }-comments` ) ) } >
 											<span className="icon">
 												<i className="mdi mdi-message-text"></i>
+											</span>
+										</button>
+									</p>
+									<p className="control">
+										<button className="bd-tw-button button" onClick={ () => this.showHidde( document.getElementById( `${ post.id }-comment` ) ) } >
+											<span className="icon">
+												<i className="mdi mdi-message-plus"></i>
 											</span>
 										</button>
 									</p>
@@ -101,7 +111,7 @@ class Post extends Component{
 					<div className="level is-hidden" id={ `${ post.id }-comments` } >
 						<Comments post={ post.id } />
 					</div>
-					<div>
+					<div className="is-hidden" id={ `${ post.id }-comment` } >
 						<FormComment />	
 					</div>
 				</article>

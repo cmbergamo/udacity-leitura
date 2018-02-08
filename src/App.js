@@ -19,8 +19,7 @@ class App extends Component {
 	}
  */
 	showModalPost() {
-		const modal = document.getElementById("modal-post");
-		modal.setAttribute( "class", modal.getAttribute("class") + " is-active" );
+		document.getElementById("modal-post").classList.add( "is-active" );
 	}
 
 	componentDidMount() {
