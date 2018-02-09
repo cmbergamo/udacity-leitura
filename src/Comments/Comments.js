@@ -16,6 +16,16 @@ class Comments extends Component {
 		);
 	}
 
+	voteComment = ( _id, _valor ) => {
+		ServerAPI.voteComment( _id, _valor ).then( _post => console.log( _post ) );
+	}
+
+	deleteComment = ( _id ) => {
+		ServerAPI.deleteComment( _id ).then( _post => {
+			this.props.deleteComment( _post.id );
+		} );
+	}
+
 	render () {
 		return this.state.comments.length > 0 && this.state.comments.map( comment => (
 				<div class="columns">
@@ -23,9 +33,9 @@ class Comments extends Component {
 						<span> { comment.body } </span>
 						<ControlPainel functions={ 
 								{ 
-									thumbUp: () => this.vote( comment.id, 1 ),
-									thumbDown: () => this.vote( comment.id, -1 ),
-									del: () => this.delete( comment.id )
+									thumbUp: () => this.voteComment( comment.id, 1 ),
+									thumbDown: () => this.voteComment( comment.id, -1 ),
+									del: () => this.deleteComment( comment.id )
 								}
 							} />
 					</div>
