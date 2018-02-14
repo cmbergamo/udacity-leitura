@@ -16,8 +16,10 @@ class FormPost extends Component {
 		document.getElementById("modal-post").classList.remove( "is-active" );
 	}
 
-	addPost = () => {
-		const form = document.getElementsByTagName("form")[0];
+	addPost = ( _event ) => {
+		_event.preventDefault();
+		
+		const form = _event.target;
 		
 		let obj = { }
 
@@ -27,6 +29,8 @@ class FormPost extends Component {
 
 		obj.id = generateUUID();
 		obj.timestamp = new Date().getTime();
+
+		console.log( obj );
 
 		ServerAPI.createPost( obj ).then( resp => {
 			this.props.dispatch( createPost( resp ) );
@@ -44,7 +48,7 @@ class FormPost extends Component {
 						<button className="delete" aria-label="close" onClick={ this.closeModalPost }></button>
 					</header>
 					<section className="modal-card-body">
-						<form>
+						<form onSubmit={ this.addPost } >
 							<div className="field">
 								<label className="label">Título</label>
 								<div className="control">
@@ -82,7 +86,7 @@ class FormPost extends Component {
 						</form>
 					</section>
 					<footer className="modal-card-foot">
-						<button id="criaPost" className="button is-success" onClick={ this.addPost }>Criar</button>
+						<button id="criaPost" className="button is-success" >Criar</button>
 						{/* <button className="button is-red" onClick={ this.closeModalPost }>Cancelar</button> */}
 					</footer>
 				</div>

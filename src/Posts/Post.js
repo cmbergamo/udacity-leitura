@@ -36,11 +36,6 @@ class Post extends Component{
 
 	}
 
-	addComment = ( _element ) => {
-
-		
-	}
-
 	render() {
 		const { post } = this.props;
 
@@ -69,12 +64,12 @@ class Post extends Component{
 							}
 						} />
 					
-					<div className="level is-hidden" id={ `${ post.id }-comments` } >
+					<section className="section is-hidden" id={ `${ post.id }-comments` } >
 						<Comments post={ post.id } />
-					</div>
-					<div className="is-hidden" id={ `${ post.id }-comment` } >
-						<FormComment />	
-					</div>
+					</section>
+					<section className="is-hidden" id={ `${ post.id }-comment` } >
+						<FormComment parentId={ post.id} />	
+					</section>
 				</article>
 
 			</div>

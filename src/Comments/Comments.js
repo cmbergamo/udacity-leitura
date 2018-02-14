@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import ControlPainel from '../utils/ControlPainel';
 
+import { connect } from 'react-redux';
+
 import * as ServerAPI from '../api/ServerAPI';
+import { initComments, addComment } from './actions';
 
 class Comments extends Component {
 
-	state = {
-		comments: []
-	}
-
 	componentDidMount () {
 		ServerAPI.getCommentsFromPost( this.props.post ).then( resp => {
-				this.setState( { comments: resp } );
+				this.props.init( resp );
+				//this.setState( { comments: resp } );
 			}
 		);
 	}
@@ -22,27 +22,54 @@ class Comments extends Component {
 
 	deleteComment = ( _id ) => {
 		ServerAPI.deleteComment( _id ).then( _post => {
-			this.props.deleteComment( _post.id );
+			this.setState( { comments: this.props.comments.filter( comment => comment.id !== _id ) } );
+			//this.props.deleteComment( _post.id );
 		} );
 	}
 
 	render () {
-		return this.state.comments.length > 0 && this.state.comments.map( comment => (
-				<div class="columns">
-					<div key={ comment.id } className="column has-text-justified">
-						<span> { comment.body } </span>
-						<ControlPainel functions={ 
+
+		return this.props.comments.length > 0 && this.props.comments.map( comment => (
+			<article className="media" key={ comment.id }>
+				<div className="media-content">
+					<div className="content">
+						<p>
+							<strong>
+								<span className="icon">
+									<i className="mdi mdi-account"></i>
+								</span>
+								{ comment.author }
+							</strong>
+							<br />
+							<span> { comment.body } </span>
+						</p>
+					</div>
+					<ControlPainel functions={ 
 								{ 
 									thumbUp: () => this.voteComment( comment.id, 1 ),
 									thumbDown: () => this.voteComment( comment.id, -1 ),
 									del: () => this.deleteComment( comment.id )
 								}
 							} />
-					</div>
 				</div>
+			</article>
 			) ) ;
 	}
 	
 }
 
-export default Comments;
+function mapStateToProps( currentState, props ) {
+	
+	let { comments = [] } = currentState;
+	
+	return { comments: ( comments[props.post] || [] ) }
+}
+
+function mapDispatchToProps ( dispatch ) {
+	return {
+		init: ( comments ) => dispatch( initComments( comments ) ),
+		addComment: ( comment ) => dispatch( addComment( comment ) )
+	}
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )( Comments );
