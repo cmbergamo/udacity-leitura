@@ -1,4 +1,5 @@
-import { INIT_COMMENTS, ADD_COMMENT } from './actions';
+import { INIT_COMMENTS, ADD_COMMENT, DEL_COMMENT, VOTE_COMMENT } from './actions';
+import { DEL_POST } from '../Posts/actions';
 
 export const comments = ( state = {} , action ) => {
 
@@ -16,7 +17,7 @@ export const comments = ( state = {} , action ) => {
 			}
 
 			return novoState;
-
+			
 		case ADD_COMMENT :
 			const { comment } = action;
 			novoState = { ...state }; 
@@ -24,9 +25,35 @@ export const comments = ( state = {} , action ) => {
 				novoState[comment.parentId] = [];
 
 			novoState[comment.parentId].push( comment );
-			console.log( novoState );
+			
 
-			return novoState
+			return novoState;
+			
+		case DEL_COMMENT :
+			return {
+				...state,
+				[action.comment.parentId] : state[action.comment.parentId].filter( c => c.id !== action.comment.id )
+			}
+
+		case DEL_POST :
+			novoState = { ...state };
+			delete novoState[ action.id ];
+			
+			return novoState;
+		
+		case VOTE_COMMENT :
+			novoState = {
+				...state,
+				[action.parentId]: {
+					...state[action.parentId],
+					[action.id]: {
+						...state[action.parentId][action.id],
+						[action.voteScore]: action.voteScore
+					}
+				}
+			};
+
+			console.log( novoState );
 
 		default :
 			return state;

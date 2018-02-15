@@ -15,3 +15,23 @@ export const addComment = ( comment ) => {
 		comment
 	}
 }
+
+export const DEL_COMMENT = "DEL_COMMENT";
+
+export const delComment = ( comment ) => {
+	return {
+		type: DEL_COMMENT,
+		comment
+	}
+}
+
+export const VOTE_COMMENT = "VOTE_COMMENT";
+
+export const voteComment = ( { parentId, id, voteScore} ) => { 
+	return {
+		type: VOTE_COMMENT,
+		parentId,
+		id,
+		voteScore
+	}
+}

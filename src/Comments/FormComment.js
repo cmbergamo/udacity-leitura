@@ -10,6 +10,7 @@ class FormComment extends Component {
 
 	createComment = ( _event ) => {
 		_event.preventDefault();
+		document.getElementById("criaPost").classList.add("is-loading");
 
 		const form = _event.target;
 
@@ -20,12 +21,14 @@ class FormComment extends Component {
 				obj[ data.name ] =  data.value ;
 		}
 
-		obj.timestamp = new Date().getTime;
+		obj.timestamp = new Date().getTime();
 		obj.id = generateUUID();
+
+		console.log( obj );
 
 		ServerAPI.addComment( obj ).then( resp => {
 			console.log( resp );
-			//this.props.dispatch( createPost( resp ) );
+			
 			this.props.dispatch( addComment( resp ) );
 			document.getElementById("criaPost").classList.remove("is-loading");
 		} );

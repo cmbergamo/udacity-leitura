@@ -4,26 +4,27 @@ import ControlPainel from '../utils/ControlPainel';
 import { connect } from 'react-redux';
 
 import * as ServerAPI from '../api/ServerAPI';
-import { initComments, addComment } from './actions';
+import { initComments, addComment, delComment, voteComment } from './actions';
 
 class Comments extends Component {
 
 	componentDidMount () {
 		ServerAPI.getCommentsFromPost( this.props.post ).then( resp => {
 				this.props.init( resp );
-				//this.setState( { comments: resp } );
 			}
 		);
 	}
 
 	voteComment = ( _id, _valor ) => {
-		ServerAPI.voteComment( _id, _valor ).then( _post => console.log( _post ) );
+		ServerAPI.voteComment( _id, _valor ).then( _c => {
+			console.log( _c );
+			this.props.voteComment( _c );
+		 } );
 	}
 
-	deleteComment = ( _id ) => {
-		ServerAPI.deleteComment( _id ).then( _post => {
-			this.setState( { comments: this.props.comments.filter( comment => comment.id !== _id ) } );
-			//this.props.deleteComment( _post.id );
+	deleteComment = ( _comment ) => {
+		ServerAPI.deleteComment( _comment.id ).then( _c => {
+			this.props.delComment( _comment );
 		} );
 	}
 
@@ -48,7 +49,7 @@ class Comments extends Component {
 								{ 
 									thumbUp: () => this.voteComment( comment.id, 1 ),
 									thumbDown: () => this.voteComment( comment.id, -1 ),
-									del: () => this.deleteComment( comment.id )
+									del: () => this.deleteComment( comment )
 								}
 							} />
 				</div>
@@ -68,7 +69,9 @@ function mapStateToProps( currentState, props ) {
 function mapDispatchToProps ( dispatch ) {
 	return {
 		init: ( comments ) => dispatch( initComments( comments ) ),
-		addComment: ( comment ) => dispatch( addComment( comment ) )
+		addComment: ( comment ) => dispatch( addComment( comment ) ),
+		delComment: ( comment ) => dispatch( delComment ( comment ) ),
+		voteComment: ( comment ) => dispatch( voteComment( comment ) )
 	}
 }
 

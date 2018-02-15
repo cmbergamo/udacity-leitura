@@ -24,7 +24,8 @@ class FormPost extends Component {
 		let obj = { }
 
 		for ( let data of form ){
-			obj[ data.name ] =  data.value ;
+			if ( data.name )
+				obj[ data.name ] =  data.value ;
 		}
 
 		obj.id = generateUUID();
@@ -43,12 +44,12 @@ class FormPost extends Component {
 			<div className="modal" id="modal-post" >
 				<div className="modal-background" onClick={ this.closeModalPost } ></div>
 				<div className="modal-card">
-					<header className="modal-card-head">
-						<p className="modal-card-title">Novo Post</p>
-						<button className="delete" aria-label="close" onClick={ this.closeModalPost }></button>
-					</header>
-					<section className="modal-card-body">
-						<form onSubmit={ this.addPost } >
+					<form onSubmit={ this.addPost } >
+						<header className="modal-card-head">
+							<p className="modal-card-title">Novo Post</p>
+							<button className="delete" aria-label="close" onClick={ this.closeModalPost }></button>
+						</header>
+						<section className="modal-card-body">
 							<div className="field">
 								<label className="label">Título</label>
 								<div className="control">
@@ -83,12 +84,13 @@ class FormPost extends Component {
 									<button className="button is-text">Cancel</button>
 								</div>
 							</div> */}
-						</form>
-					</section>
-					<footer className="modal-card-foot">
-						<button id="criaPost" className="button is-success" >Criar</button>
-						{/* <button className="button is-red" onClick={ this.closeModalPost }>Cancelar</button> */}
-					</footer>
+						
+						</section>
+						<footer className="modal-card-foot">
+							<button type="submit" id="criaPost" className="button is-success" >Criar</button>
+							{/* <button className="button is-red" onClick={ this.closeModalPost }>Cancelar</button> */}
+						</footer>
+					</form>
 				</div>
 			</div>
 
