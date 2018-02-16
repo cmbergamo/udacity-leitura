@@ -42,18 +42,20 @@ export const comments = ( state = {} , action ) => {
 			return novoState;
 		
 		case VOTE_COMMENT :
-			novoState = {
-				...state,
-				[action.parentId]: {
-					...state[action.parentId],
-					[action.id]: {
-						...state[action.parentId][action.id],
-						[action.voteScore]: action.voteScore
-					}
-				}
-			};
+			console.log( action );
+
+			novoState = { ...state };
+			let temp = novoState[action.comment.parentId].filter( c => c.id !== action.comment.id );
 
 			console.log( novoState );
+
+			temp.push( action.comment );
+
+			
+			return { 
+				...novoState,
+				[action.comment.parentId] : temp
+			};
 
 		default :
 			return state;

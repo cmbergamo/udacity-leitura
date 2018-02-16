@@ -27,11 +27,10 @@ export const delComment = ( comment ) => {
 
 export const VOTE_COMMENT = "VOTE_COMMENT";
 
-export const voteComment = ( { parentId, id, voteScore} ) => { 
+export const voteComment = ( comment ) => { 
+	
 	return {
 		type: VOTE_COMMENT,
-		parentId,
-		id,
-		voteScore
+		comment
 	}
 }
