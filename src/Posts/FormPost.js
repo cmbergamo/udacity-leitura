@@ -47,7 +47,11 @@ class FormPost extends Component {
 					<form onSubmit={ this.addPost } >
 						<header className="modal-card-head">
 							<p className="modal-card-title">Novo Post</p>
+<<<<<<< HEAD
 							<button type="button" className="delete" aria-label="close" onClick={ this.closeModalPost } ></button>
+=======
+							<button type="button" className="delete" aria-label="close" onClick={ this.closeModalPost }></button>
+>>>>>>> 73b4ca4f39ae72e98946137835b321d1d94defee
 						</header>
 						<section className="modal-card-body">
 							<div className="field">

@@ -79,14 +79,20 @@ function mapStateToProps( currentState, props ) {
 	let { posts = [] , category = '', order = 'voteScore' } = currentState;
 
 	if ( category === undefined || category === '' ) {
+<<<<<<< HEAD
 		posts = posts.slice( 0 );
 		posts.sort( sortBy( order ) );
+=======
+		console.log("entrou");
+		let copiaPosts = posts.slice( 0 );
+		copiaPosts.sort( sortBy('voteScore') );
+>>>>>>> 73b4ca4f39ae72e98946137835b321d1d94defee
 
-		return  { posts , category } ;
+		return  { posts: copiaPosts, category } ;
 
 	} else {
 
-		const visiblePosts = posts.filter( ( p ) => {
+		let visiblePosts = posts.filter( ( p ) => {
 			return p.category === category
 		});
 		

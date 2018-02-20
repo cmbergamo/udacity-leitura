@@ -5,8 +5,8 @@ export const posts = ( currentstate = [] , action ) => {
 	switch ( action.type ) {
 
 		case ADD_POST:
-					
-			const newPost = {
+			
+			let newPost = [{
 				id: action.id,
 				timestamp: action.timestamp,
 				title: action.title,
@@ -16,21 +16,21 @@ export const posts = ( currentstate = [] , action ) => {
 				voteScore: action.voteScore,
 				deleted: action.deleted,
 				commentCount: action.commentCount
-			}
+			}]
 
-			currentstate.push( newPost );
+			newPost = newPost.concat( currentstate );
 
-			return currentstate;
+			return newPost;
 
 		case EDIT_POST:
 			
-			const novoArray = currentstate.filter( p => p.id !== action.id );
-			const editedPost = currentstate.filter( p => p.id === action.id);
+			let novoArray = currentstate.filter( p => p.id !== action.id );
+			let editedPost = currentstate.filter( p => p.id === action.id);
 
 			editedPost.title = action.title;
 			editedPost.body = action.body;
 
-			novoArray.push( editPost );
+			novoArray = novoArray.concat( editPost );
 
 			return novoArray;
 

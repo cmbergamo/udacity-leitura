@@ -2,7 +2,7 @@
 const api = "http://localhost:3001"
 let auth;
 if ( !auth )
-	auth = "cmb-" + Math.random().toString(36).substr(-8)
+	auth = "cmb-2"
 
 
 
