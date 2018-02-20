@@ -82,11 +82,11 @@ function mapStateToProps( currentState, props ) {
 		posts = posts.slice( 0 );
 		posts.sort( sortBy( order ) );
 
-		return  { posts , category } ;
+		return  { posts: copiaPosts, category } ;
 
 	} else {
 
-		const visiblePosts = posts.filter( ( p ) => {
+		let visiblePosts = posts.filter( ( p ) => {
 			return p.category === category
 		});
 		
