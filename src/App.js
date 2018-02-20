@@ -77,13 +77,15 @@ function mapStateToProps( currentState, props ) {
 	const { posts = [] , category = '' } = currentState;
 
 	if ( category === undefined || category === '' ) {
-		posts.sort( sortBy('voteScore') );
+		console.log("entrou");
+		let copiaPosts = posts.slice( 0 );
+		copiaPosts.sort( sortBy('voteScore') );
 
-		return  { posts , category } ;
+		return  { posts: copiaPosts, category } ;
 
 	} else {
 
-		const visiblePosts = posts.filter( ( p ) => {
+		let visiblePosts = posts.filter( ( p ) => {
 			return p.category === category
 		});
 		
