@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as ServerAPI from '../api/ServerAPI';
 
 import { connect } from 'react-redux';
 import { changeOrdenation } from './actions';
@@ -9,7 +8,7 @@ import 'bulma/css/bulma.css';
 class Order extends Component{
 
 	state = {
-		order: { voteScore: "Score", timestamp: "Date", author: "Autor" }
+		order: [ { description: "Score", value: "voteScore" } , { value: "timestamp" ,description: "Date" }, { value: "author" ,description: "Author" } ]
 	}
 
 	changeOrder = ( element ) => {
@@ -21,11 +20,11 @@ class Order extends Component{
 		return (
 			<div className="field">
 				<div className="control">
-					<label className="label">Selecione a Categoria: </label>
+					<label className="label">Selecione a Ordem: </label>
 					<div className="select">
 						<select name="order" onChange={ this.changeOrder } >
-							{ this.state.order.map( ( item ) => (
-								<option key={ } value={ path } selected={ path === this.props.order } > { name } </option>
+							{ this.state.order.map( ( { description, value} ) => (
+								<option key={ value } value={ value } > { description } </option>
 							) ) }
 						</select>
 					</div>
@@ -47,4 +46,4 @@ function mapDispatchToProps( dispatch ) {
 	}
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )( Category );
+export default connect( mapStateToProps, mapDispatchToProps )( Order );

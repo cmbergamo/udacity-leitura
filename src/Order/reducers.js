@@ -1,13 +1,13 @@
 import { CHANGE_ORDER } from './actions'
 
-const initialState =  ''
+const initialState =  'voteScore'
 
 export const order = ( currentState = initialState, action ) => {
 
 	if ( action.type === CHANGE_ORDER ) {
-		const { category } = action;
+		const { order } = action;
 
-		return category;
+		return order;
 
 	} else {
 		return currentState;

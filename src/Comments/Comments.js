@@ -4,6 +4,7 @@ import ControlPainel from '../utils/ControlPainel';
 import { connect } from 'react-redux';
 
 import * as ServerAPI from '../api/ServerAPI';
+import sortBy from 'sort-by';
 import { initComments, addComment, delComment, voteComment } from './actions';
 
 class Comments extends Component {
@@ -17,7 +18,6 @@ class Comments extends Component {
 
 	voteComment = ( _id, _valor ) => {
 		ServerAPI.voteComment( _id, _valor ).then( _c => {
-			console.log( _c );
 			this.props.voteComment( _c );
 		 } );
 	}
@@ -61,9 +61,14 @@ class Comments extends Component {
 
 function mapStateToProps( currentState, props ) {
 	
-	let { comments = [] } = currentState;
-	
-	return { comments: ( comments[props.post] || [] ) }
+	let { comments = [], order = 'voteScore' } = currentState;
+
+	comments = comments[props.post] || [];
+	comments = comments.slice( 0 )
+
+	comments.sort( sortBy( order ) ); 
+
+	return { comments }
 }
 
 function mapDispatchToProps ( dispatch ) {

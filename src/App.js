@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Post from './Posts/Post';
 import Category from './Categories/Category';
+import Order from './Order/Order';
 import FormPost from './Posts/FormPost';
 
 import * as ServerAPI from './api/ServerAPI';
@@ -46,7 +47,8 @@ class App extends Component {
 					</div>
 				</section>
 				<div className="notification">
-					<Category todas={ true } />
+					<Category className="is-left" todas={ true } />
+					<Order className="is-right" />
 				</div>
 				
 				<div  className="media">
@@ -74,10 +76,11 @@ class App extends Component {
 
 function mapStateToProps( currentState, props ) {
 
-	const { posts = [] , category = '' } = currentState;
+	let { posts = [] , category = '', order = 'voteScore' } = currentState;
 
 	if ( category === undefined || category === '' ) {
-		posts.sort( sortBy('voteScore') );
+		posts = posts.slice( 0 );
+		posts.sort( sortBy( order ) );
 
 		return  { posts , category } ;
 
@@ -87,7 +90,7 @@ function mapStateToProps( currentState, props ) {
 			return p.category === category
 		});
 		
-		visiblePosts.sort( sortBy('voteScore') );
+		visiblePosts.sort( sortBy( order ) );
 
 		return  { posts: visiblePosts ,
 			category } ;

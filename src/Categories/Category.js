@@ -29,10 +29,10 @@ class Category extends Component{
 				<div className="control">
 					<label className="label">Selecione a Categoria: </label>
 					<div className="select">
-						<select name="category" onChange={ this.changeCategory } >
+						<select name="category" onChange={ this.changeCategory } value={ this.props.selectedCategory } >
 							{ this.props.todas && (	<option value='' className="has-text-weight-bold">Todas</option> ) }
 							{ this.state.categories.map( ( { name, path } ) => (
-								<option key={ path } value={ path } selected={ path === this.props.selectedCategory } > { name } </option>
+								<option key={ path } value={ path } > { name } </option>
 							) ) }
 						</select>
 					</div>
