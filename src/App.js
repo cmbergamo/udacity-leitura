@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ListPosts from './Posts/ListPosts';
 import Category from './Categories/Category';
-import Order from './Order/Order';
 import FormPost from './Posts/FormPost';
 
 import * as ServerAPI from './api/ServerAPI';
@@ -47,10 +46,12 @@ class App extends Component {
 						</div>
 					</div>
 				</section>
-				<div className="notification">
-					<Category className="is-left" todas={ true } />
-					<Order className="is-right" />
-				</div>
+				<Route path="/:category" render={ obj => {
+					return (
+						<Category params={ obj.match.params } />
+					);
+				 } } />
+				
 				<Route exact path="/" component={ ListPosts } />
 
 				<FormPost />
