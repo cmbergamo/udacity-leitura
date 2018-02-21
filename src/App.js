@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import Post from './Posts/Post';
+import ListPosts from './Posts/ListPosts';
 import Category from './Categories/Category';
 import Order from './Order/Order';
 import FormPost from './Posts/FormPost';
 
 import * as ServerAPI from './api/ServerAPI';
-import sortBy from 'sort-by';
+
+import { Route } from 'react-router'
 
 import { connect } from 'react-redux';
 import { loadPosts } from './Posts/actions';
@@ -50,23 +51,7 @@ class App extends Component {
 					<Category className="is-left" todas={ true } />
 					<Order className="is-right" />
 				</div>
-				
-				<div  className="media">
-					<div className="media-left">
-					</div>
-					
-					<div className="media-content">
-				   		{ this.props.posts && this.props.posts.map( post => ( <Post id={ post.id }  key={ post.id } /> ) ) }
-					</div>
-
-					<div className="media-right">
-						<button className="button is-medium modal-button" data-target="modal-post" onClick={this.showModalPost} >
-							<span className="icon is-small">
-								<i className='mdi mdi-plus-circle'></i>
-							</span>
-						</button>
-					</div>
-				</div>
+				<Route exact path="/" component={ ListPosts } />
 
 				<FormPost />
 			</div>
@@ -76,25 +61,8 @@ class App extends Component {
 
 function mapStateToProps( currentState, props ) {
 
-	let { posts = [] , category = '', order = 'voteScore' } = currentState;
-
-	if ( category === undefined || category === '' ) {
-		posts = posts.slice( 0 );
-		posts.sort( sortBy( order ) );
-
-		return  { posts: copiaPosts, category } ;
-
-	} else {
-
-		let visiblePosts = posts.filter( ( p ) => {
-			return p.category === category
-		});
-		
-		visiblePosts.sort( sortBy( order ) );
-
-		return  { posts: visiblePosts ,
-			category } ;
-	}
+	return null;
+	
 }
 
 function mapDispatchToProps( dispatch ) {
