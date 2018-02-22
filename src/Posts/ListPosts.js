@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Post from './Post';
+import FormPost from './FormPost';
 
 import { connect } from 'react-redux';
 
@@ -7,25 +8,30 @@ import sortBy from 'sort-by';
 
 class ListPosts extends Component {
 
+	showModalPost() {
+		document.getElementById("modal-post").classList.add( "is-active" );
+	}
+
 	render() {
 
 		return (
-			<div  className="media">
-				<div className="media-left">
-				</div>
-				
-				<div className="media-content">
-					{ this.props.posts && this.props.posts.map( post => ( <Post id={ post.id }  key={ post.id } /> ) ) }
-				</div>
+			<section className="section is-paddingless">
+				<div  className="media">
+					<div className="media-left" />
+					<div className="media-content" style={ { overflow: "visible"} } >
+						{ this.props.posts && this.props.posts.map( post => ( <Post id={ post.id }  key={ post.id } /> ) ) }
+					</div>
 
-				<div className="media-right">
-					<button className="button is-medium modal-button" data-target="modal-post" onClick={this.showModalPost} >
-						<span className="icon is-small">
-							<i className='mdi mdi-plus-circle'></i>
-						</span>
-					</button>
+					<div className="media-right">
+						<button className="button is-medium modal-button" data-target="modal-post" onClick={this.showModalPost} >
+							<span className="icon is-small">
+								<i className='mdi mdi-plus-circle'></i>
+							</span>
+						</button>
+					</div>
 				</div>
-			</div>
+				<FormPost />
+			</section>
 		);
 	}
 }

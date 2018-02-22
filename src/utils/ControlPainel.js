@@ -15,6 +15,7 @@ class ControlPainel extends Component {
 							{ message && (
 								<p className="control">
 									<button className="bd-tw-button button" onClick={ message } >
+										<span>Mostrar Comentários</span>
 										<span className="icon">
 											<i className="mdi mdi-message-text"></i>
 										</span>
@@ -24,6 +25,7 @@ class ControlPainel extends Component {
 							{ messagePlus && (
 								<p className="control">
 									<button className="bd-tw-button button" onClick={ messagePlus } >
+										<span>Adicionar Cometários</span>
 										<span className="icon">
 											<i className="mdi mdi-message-plus"></i>
 										</span>

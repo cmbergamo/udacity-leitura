@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Category from '../Categories/Category';
+import CategoryList from '../Categories/CategoryList';
 
 import * as ServerAPI from '../api/ServerAPI';
 import { generateUUID } from '../utils/utils';
@@ -67,7 +67,7 @@ class FormPost extends Component {
 								</div>
 							</div>
 
-							<Category todas={ false } />
+							<CategoryList todas={ false } />
 
 							<div className="field">
 								<label className="label">Mensagem</label>
@@ -76,19 +76,9 @@ class FormPost extends Component {
 								</div>
 							</div>
 
-							{/* <div className="field is-grouped">
-								<div className="control">
-									<button className="button is-link">Submit</button>
-								</div>
-								<div className="control">
-									<button className="button is-text">Cancel</button>
-								</div>
-							</div> */}
-						
 						</section>
 						<footer className="modal-card-foot">
 							<button type="submit" id="criaPost" className="button is-success" >Criar</button>
-							{/* <button className="button is-red" onClick={ this.closeModalPost }>Cancelar</button> */}
 						</footer>
 					</form>
 				</div>

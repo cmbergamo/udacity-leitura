@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ListPosts from './Posts/ListPosts';
 import Category from './Categories/Category';
-import FormPost from './Posts/FormPost';
 
 import * as ServerAPI from './api/ServerAPI';
 
@@ -19,10 +18,6 @@ class App extends Component {
 		order: 'voteScore' // Pode ser 'voteScore' ou 'creationDate'
 	}
  */
-	showModalPost() {
-		document.getElementById("modal-post").classList.add( "is-active" );
-	}
-
 	componentDidMount() {
 		
 		ServerAPI.getPosts().then( posts => {
@@ -37,14 +32,12 @@ class App extends Component {
 
 		return (
 			<div className="container">
-				<section className="hero is-dark">
-					<div className="hero-body">
+				<section className="section">
 						<div className="container">
 							<h1 className="title">
 								Projeto Leitura
 							</h1>
 						</div>
-					</div>
 				</section>
 				<Route path="/:category" render={ obj => {
 					return (
@@ -54,16 +47,9 @@ class App extends Component {
 				
 				<Route exact path="/" component={ ListPosts } />
 
-				<FormPost />
 			</div>
 		);
 	}
-}
-
-function mapStateToProps( currentState, props ) {
-
-	return null;
-	
 }
 
 function mapDispatchToProps( dispatch ) {
@@ -72,4 +58,4 @@ function mapDispatchToProps( dispatch ) {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect( null, mapDispatchToProps)(App);

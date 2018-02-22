@@ -24,10 +24,7 @@ class FormComment extends Component {
 		obj.timestamp = new Date().getTime();
 		obj.id = generateUUID();
 
-		console.log( obj );
-
 		ServerAPI.addComment( obj ).then( resp => {
-			console.log( resp );
 			
 			this.props.dispatch( addComment( resp ) );
 			document.getElementById("criaPost").classList.remove("is-loading");
@@ -61,19 +58,9 @@ class FormComment extends Component {
 
 						<input type="hidden" name="parentId" value={ this.props.parentId } />
 
-						{/* <div className="field is-grouped">
-							<div className="control">
-								<button className="button is-link">Submit</button>
-							</div>
-							<div className="control">
-								<button className="button is-text">Cancel</button>
-							</div>
-						</div> */}
-					
 					</section>
 					<footer className="modal-card-foot">
 						<button type="submit" id="criaComment" className="button is-success" >Criar</button>
-						{/* <button className="button is-red" onClick={ this.closeModalPost }>Cancelar</button> */}
 					</footer>
 				</form>
 			</div>
