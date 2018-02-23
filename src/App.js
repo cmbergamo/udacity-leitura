@@ -19,12 +19,13 @@ class App extends Component {
 	}
  */
 	componentDidMount() {
+		this.props.initializePost( null );
 		
-		ServerAPI.getPosts().then( posts => {
+		/* ServerAPI.getPosts().then( posts => {
 
 				this.props.initializePost( posts );
 			
-		} );
+		} ); */
 
 	}
 
