@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CategoryList from '../Categories/CategoryList';
 
-import * as ServerAPI from '../api/ServerAPI';
+import ServerAPI from '../api/ServerAPI';
 import { generateUUID } from '../utils/utils';
 
 import { connect } from 'react-redux';

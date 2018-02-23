@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addComment } from './actions';
 
-import * as ServerAPI from '../api/ServerAPI';
+import ServerAPI from '../api/ServerAPI';
 import { generateUUID } from '../utils/utils';
 
 class FormComment extends Component {

@@ -19,7 +19,7 @@ class App extends Component {
 	}
  */
 	componentDidMount() {
-		this.props.initializePost( null );
+		this.props.initializePost( );
 		
 		/* ServerAPI.getPosts().then( posts => {
 

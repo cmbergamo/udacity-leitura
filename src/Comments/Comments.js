@@ -3,7 +3,7 @@ import ControlPainel from '../utils/ControlPainel';
 
 import { connect } from 'react-redux';
 
-import * as ServerAPI from '../api/ServerAPI';
+import ServerAPI from '../api/ServerAPI';
 import sortBy from 'sort-by';
 import { initComments, addComment, delComment, voteComment } from './actions';
 

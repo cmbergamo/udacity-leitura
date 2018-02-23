@@ -19,7 +19,7 @@ class ListPosts extends Component {
 				<div  className="media">
 					<div className="media-left" />
 					<div className="media-content" style={ { overflow: "visible"} } >
-						{ this.props.posts && this.props.posts.map( post => ( <Post id={ post.id }  key={ post.id } /> ) ) }
+						{ this.props.posts && this.props.posts.map( ( post, order ) => ( <Post id={ post.id }  key={ order } /> ) ) }
 					</div>
 
 					<div className="media-right">

@@ -1,5 +1,5 @@
 import { ADD_POST, EDIT_POST, LOAD_ALL, DEL_POST } from './actions'
-import { editPost } from '../api/ServerAPI';
+import ServerAPI from '../api/ServerAPI';
 
 export const posts = ( currentstate = [] , action ) => {
 	switch ( action.type ) {
@@ -30,7 +30,7 @@ export const posts = ( currentstate = [] , action ) => {
 			editedPost.title = action.title;
 			editedPost.body = action.body;
 
-			novoArray = novoArray.concat( editPost );
+			novoArray = novoArray.concat( ServerAPI.editPost );
 
 			return novoArray;
 

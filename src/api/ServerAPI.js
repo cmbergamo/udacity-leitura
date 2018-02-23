@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+
 
 const api = "http://localhost:3001"
 let auth;
@@ -13,64 +15,68 @@ const headers = {
 	'Authorization': auth
 }
 
-export const getCategorias = () =>
-	fetch(`${ api }/categories/`, { headers })
-		.then(res => res.json())
-		.then(data => data.categories)
+const ServerApi = {
 
-export const getPostsFromCategory = ( category ) =>
+getCategorias : () => {
+	return fetch(`${ api }/categories/`, { headers })
+		.then(res => res.json())
+		.then(data => data.categories);
+	},
+
+getPostsFromCategory : ( category ) =>
 	fetch(`${ api }/${ category }/posts`, { headers })
-		.then(res => res.json())
+		.then(res => res.json()),
 
-export const getPosts = () =>
-	fetch(`${ api }/posts`, { headers })
-		.then(res => res.json())
+getPosts : () => {
+	const req = fetch(`${ api }/posts`, { headers })
+	.then(res => res.json())
+	return Observable.from ( req ) },
 
-export const createPost = ( { id, timestamp, title, body, author, category }  ) =>
+createPost : ( { id, timestamp, title, body, author, category }  ) =>
 	fetch(`${ api }/posts/`, {
 			method: 'POST',
 			headers: { ...headers,
 				'Content-Type': 'application/json' },
 			body: JSON.stringify( { id, timestamp, title, body, author, category } )
-		}).then(res => res.json())
+		}).then(res => res.json()),
 
-export const getPostDetails = ( _id ) =>
+getPostDetails : ( _id ) =>
 	fetch(`${ api }/posts/${ _id }`, { headers })
-		.then(res => res.json())
+		.then(res => res.json()),
 
-export const votePost = ( _id, _vote ) =>
+votePost : ( _id, _vote ) =>
 	fetch(`${ api }/posts/${ _id }`, {
 		method: 'POST',
 		headers: { ...headers,
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify( { option: _vote > 0 ? 'upVote' : 'downVote' } )
-	}).then(res => res.json())
+	}).then(res => res.json()),
 
-export const editPost = ( { id, title, body }  ) =>
+editPost : ( { id, title, body }  ) =>
 	fetch(`${ api }/posts/${ id }`, {
 		method: 'PUT',
 		headers: { ...headers,
 			'Content-Type': 'application/json' },
 		body: JSON.stringify( { title, body } )
-	}).then(res => res.json())
+	}).then(res => res.json()),
 
-export const deletePost = ( id ) =>
+deletePost : ( id ) =>
 	fetch(`${ api }/posts/${ id }`, {
 		method: 'DELETE',
 		headers: { ...headers,
 			'Content-Type': 'application/json' }
-	}).then(res => res.json())
+	}).then(res => res.json()),
 
-export const getCommentsFromPost = ( post ) =>
+getCommentsFromPost : ( post ) =>
 	fetch(`${ api }/posts/${ post }/comments`, {
 		headers: {
 			...headers,
 			'Content-Type': 'application/json'
 		},
-	}).then(res => res.json())
+	}).then(res => res.json()),
 
-export const addComment = ( { id, timestamp, body, author, parentId } ) =>
+addComment : ( { id, timestamp, body, author, parentId } ) =>
 	fetch(`${ api }/comments`, {
 		method: 'POST',
 		headers: {
@@ -78,32 +84,35 @@ export const addComment = ( { id, timestamp, body, author, parentId } ) =>
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify( { id, timestamp, body, author, parentId } )
-	}).then(res => res.json())
+	}).then(res => res.json()),
 
-export const getCommentDetails = ( _id ) =>
+getCommentDetails : ( _id ) =>
 	fetch(`${ api }/comments/${ _id }`, { headers })
-		.then(res => res.json())
+		.then(res => res.json()),
 
-export const voteComment = ( _id, _vote ) =>
+voteComment : ( _id, _vote ) =>
 	fetch(`${ api }/comments/${ _id }`, {
 			method: 'POST',
 			headers: { ...headers,
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify( { option: _vote > 0 ? 'upVote' : 'downVote' } )
-		}).then(res => res.json())
+		}).then(res => res.json()),
 
-export const editComment = ( { id, timestamp, body }  ) =>
+editComment : ( { id, timestamp, body }  ) =>
 	fetch(`${ api }/comments/${ id }`, {
 		method: 'PUT',
 		headers: { ...headers,
 			'Content-Type': 'application/json' },
 		body: JSON.stringify( { timestamp, body } )
-	}).then(res => res.json())
+	}).then(res => res.json()),
 
-export const deleteComment = ( id ) =>
+deleteComment: ( id ) =>
 	fetch(`${ api }/comments/${ id }`, {
 		method: 'DELETE',
 		headers: { ...headers,
 			'Content-Type': 'application/json' }
 	}).then(res => res.json())
+}
+
+export default ServerApi;

@@ -1,4 +1,4 @@
-import * as ServerAPI from '../api/ServerAPI';
+import ServerAPI from '../api/ServerAPI';
 
 export const ADD_POST = 'ADD_POST';
 
@@ -47,19 +47,25 @@ export const loadPosts = ( posts ) => {
 	
 	return {
 		type: LOAD_ALL,
-		//posts
+		posts
 	}
 
 }
 
-export const loadPostsEpic = ( action$, store ) =>
-	action$.ofType( LOAD_ALL )
+/* export const LOAD_POSTS = 'LOAD_POSTS';
+
+export const loadPosts = (  ) => {
+	
+	return {
+		type: LOAD_POSTS,
+	}
+
+} */
+
+export const loadPostsEpic = ( action$, store ) => {
+	return action$.ofType( LOAD_ALL )
 		.mergeMap( action =>  {
-			ServerAPI.getPosts().then( posts => {
-				console.log(posts);
-				//this.props.initializePost( posts );
-				return posts;
-			
-			} );
+			return ServerAPI.getPosts().mapTo( p => ( { type: LOAD_ALL, posts: p} ) )
 		} );
+}
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as ServerAPI from '../api/ServerAPI';
+import ServerAPI from '../api/ServerAPI';
 
 import { connect } from 'react-redux';
 import { changeSelectedCategory } from './actions';

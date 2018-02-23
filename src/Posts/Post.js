@@ -6,7 +6,7 @@ import ControlPainel from '../utils/ControlPainel';
 import { connect } from 'react-redux';
 import { editPost, deletePost } from './actions';
 
-import * as ServerAPI from '../api/ServerAPI'
+import ServerAPI from '../api/ServerAPI'
 
 import 'bulma/css/bulma.css';
 import 'mdi/css/materialdesignicons.css'
