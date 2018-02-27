@@ -1,5 +1,3 @@
-import ServerAPI from '../api/ServerAPI';
-
 export const ADD_POST = 'ADD_POST';
 
 //export const createPost = ( { title, body, author, category } ) => {
@@ -52,20 +50,13 @@ export const loadPosts = ( posts ) => {
 
 }
 
-/* export const LOAD_POSTS = 'LOAD_POSTS';
+export const LOAD_ALL_REP = 'LOAD_ALL_REP';
 
-export const loadPosts = (  ) => {
+/*export const loadPosts = (  ) => {
 	
 	return {
 		type: LOAD_POSTS,
 	}
 
 } */
-
-export const loadPostsEpic = ( action$, store ) => {
-	return action$.ofType( LOAD_ALL )
-		.mergeMap( action =>  {
-			return ServerAPI.getPosts().mapTo( p => ( { type: LOAD_ALL, posts: p} ) )
-		} );
-}
 

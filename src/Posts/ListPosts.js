@@ -58,4 +58,4 @@ function mapStateToProps( currentState, props ) {
 	}
 }
 
-export default connect( mapStateToProps )(ListPosts);
+export default connect( mapStateToProps )( ListPosts );

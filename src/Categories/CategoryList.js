@@ -17,9 +17,9 @@ class CategoryList extends Component{
 	}
 
 	componentDidMount() {
-		ServerAPI.getCategorias().then( data =>
-			this.setState( { categories: data } )
-		);
+		ServerAPI.getCategorias().then( data => {
+			this.setState( { categories: data.categories } )
+		} );
 	}
 
 	render() {

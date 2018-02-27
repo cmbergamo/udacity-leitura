@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import ListPosts from './Posts/ListPosts';
 import Category from './Categories/Category';
 
-import * as ServerAPI from './api/ServerAPI';
-
 import { Route } from 'react-router'
 
 import { connect } from 'react-redux';

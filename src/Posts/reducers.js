@@ -1,4 +1,4 @@
-import { ADD_POST, EDIT_POST, LOAD_ALL, DEL_POST } from './actions'
+import { ADD_POST, EDIT_POST, LOAD_ALL, DEL_POST, LOAD_ALL_REP } from './actions'
 import ServerAPI from '../api/ServerAPI';
 
 export const posts = ( currentstate = [] , action ) => {
@@ -34,7 +34,7 @@ export const posts = ( currentstate = [] , action ) => {
 
 			return novoArray;
 
-		case LOAD_ALL:
+		case LOAD_ALL_REP:
 			
 			const novosPosts = currentstate.concat(action.posts);
 			return novosPosts;
