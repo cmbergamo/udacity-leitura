@@ -1,10 +1,10 @@
-import { INIT_COMMENTS, ADD_COMMENT, DEL_COMMENT, VOTE_COMMENT } from './actions';
+import { INIT_COMMENTS, ADD_COMMENT, DEL_COMMENT, VOTE_COMMENT, INIT_COMMENTS_REP } from './actions';
 import { DEL_POST } from '../Posts/actions';
 
 export const comments = ( state = {} , action ) => {
 
 	switch ( action.type ) {
-		case INIT_COMMENTS : 
+		case INIT_COMMENTS_REP : 
 			const { comments } = action;
 
 			let novoState = {};

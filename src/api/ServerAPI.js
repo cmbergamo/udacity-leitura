@@ -72,13 +72,15 @@ export const ServerApi = {
 				'Content-Type': 'application/json' }
 		}).then(res => res.json()),
 
-	getCommentsFromPost : ( post ) =>
-		fetch(`${ api }/posts/${ post }/comments`, {
-			headers: {
-				...headers,
-				'Content-Type': 'application/json'
-			},
-		}).then(res => res.json()),
+	getCommentsFromPost : ( post ) => {
+		return ajax( {
+				url:`${ api }/posts/${ post }/comments`,
+				headers: {
+					...headers,
+					'Content-Type': 'application/json'
+				}
+		} )
+	},
 
 	addComment : ( { id, timestamp, body, author, parentId } ) =>
 		fetch(`${ api }/comments`, {

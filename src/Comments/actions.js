@@ -1,9 +1,10 @@
 export const INIT_COMMENTS = "INIT_COMMENT";
+export const INIT_COMMENTS_REP = "INIT_COMMENTS_REP";
 
-export const initComments = ( comments = [] ) => {
+export const initComments = ( post ) => {
 	return {
 		type: INIT_COMMENTS,
-		comments
+		post
 	}
 }
 

@@ -6,10 +6,10 @@ import { createStore, compose, applyMiddleware  } from 'redux';
 import combineReducers from './reducer';
 import { Provider } from 'react-redux';
 import { createEpicMiddleware } from 'redux-observable';
-import { loadPostsEpic } from './epics';
+import rootEpic from './epics';
 import 'rxjs';
 
-const epicMiddleware = createEpicMiddleware(loadPostsEpic);
+const epicMiddleware = createEpicMiddleware(rootEpic);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -10,10 +10,7 @@ import { initComments, addComment, delComment, voteComment } from './actions';
 class Comments extends Component {
 
 	componentDidMount () {
-		ServerAPI.getCommentsFromPost( this.props.post ).then( resp => {
-				this.props.init( resp );
-			}
-		);
+		this.props.init( this.props.post );
 	}
 
 	voteComment = ( _id, _valor ) => {
