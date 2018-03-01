@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 function Category( props ) {
 	console.log( props );
+	
 	return (
 		<section className="section is-paddingless">
 			<div className="notification">
