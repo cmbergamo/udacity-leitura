@@ -61,6 +61,7 @@ class App extends Component {
 							</span>
 
 							<div className="navbar-dropdown">
+								<Link to="/todas" className="navbar-item" onClick={ () => this.selecionaCategoria( "" ) } >Todas</Link>
 								{ this.state.categories.map( cat => ( <Link key={ cat.path } to={ "/" + cat.path } className="navbar-item" onClick={ () => this.selecionaCategoria( cat.path ) } >{ cat.name }</Link> ) ) }
 							</div>
 						</div>
@@ -71,13 +72,13 @@ class App extends Component {
 
 							<div className="navbar-dropdown">
 								<a className="navbar-item" onClick={ () => this.selecionaOrdem( "voteScore" ) } >
-									Overview
+									Score
 								</a>
-								<a className="navbar-item">
-									Elements
+								<a className="navbar-item" onClick={ () => this.selecionaOrdem( "timestamp" ) } >
+									Date
 								</a>
-								<a className="navbar-item">
-									Components
+								<a className="navbar-item" onClick={ () => this.selecionaOrdem( "author" ) } >
+									Author
 								</a>
 							</div>
 						</div>
