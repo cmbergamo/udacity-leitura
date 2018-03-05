@@ -37,7 +37,7 @@ class ListPosts extends Component {
 }
 
 function mapStateToProps( currentState, props ) {
-	let { posts = [] , category = '', order = 'voteScore' } = currentState;
+	let { posts = [] , category = '', order = '-voteScore' } = currentState;
 
 	if ( category === undefined || category === '' ) {
 		posts = posts.slice( 0 );

@@ -8,7 +8,7 @@ import 'bulma/css/bulma.css';
 class Order extends Component{
 
 	state = {
-		order: [ { description: "Score", value: "voteScore" } , { value: "timestamp" ,description: "Date" }, { value: "author" ,description: "Author" } ]
+		order: [ { description: "Score", value: "-voteScore" } , { value: "-timestamp" ,description: "Date" }, { value: "author" ,description: "Author" } ]
 	}
 
 	changeOrder = ( element ) => {

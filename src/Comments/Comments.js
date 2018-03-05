@@ -61,7 +61,7 @@ class Comments extends Component {
 
 function mapStateToProps( currentState, props ) {
 	
-	let { comments = [], order = 'voteScore' } = currentState;
+	let { comments = [], order = '-voteScore' } = currentState;
 
 	comments = comments[props.post] || [];
 	comments = comments.slice( 0 )

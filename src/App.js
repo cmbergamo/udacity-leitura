@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ListPosts from './Posts/ListPosts';
 import Category from './Categories/Category';
+import Post from './Posts/Post';
 
 import * as ServerAPI from './api/ServerAPI';
 
 // import { Route } from 'react-router'
-import { Route, Link } from 'react-router-dom'
-
+import { Route, Link, withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux';
 import { loadPosts } from './Posts/actions';
@@ -52,7 +52,7 @@ class App extends Component {
 					<nav className="navbar" aria-label="dropdown navigation">
 						<div className="navbar-start">
 							<h1 className="title">
-								Projeto Leitura
+								<Link to="/" >Projeto Leitura</Link>
 							</h1>
 						</div>
 						<div className="navbar-item has-dropdown is-hoverable">
@@ -71,10 +71,10 @@ class App extends Component {
 							</a>
 
 							<div className="navbar-dropdown">
-								<a className="navbar-item" onClick={ () => this.selecionaOrdem( "voteScore" ) } >
+								<a className="navbar-item" onClick={ () => this.selecionaOrdem( "-voteScore" ) } >
 									Score
 								</a>
-								<a className="navbar-item" onClick={ () => this.selecionaOrdem( "timestamp" ) } >
+								<a className="navbar-item" onClick={ () => this.selecionaOrdem( "-timestamp" ) } >
 									Date
 								</a>
 								<a className="navbar-item" onClick={ () => this.selecionaOrdem( "author" ) } >
@@ -87,11 +87,13 @@ class App extends Component {
 							
 						</div>
 				</section>
-				<Route path="/:category" render={ obj => {
+				<Route exact path="/:category" render={ obj => {
 					return (
 						<Category params={ obj.match.params } />
 					);
 				 } } />
+
+				 <Route exact path="/:category/:id" component={ Post } />
 				
 				<Route exact path="/" component={ ListPosts } />
 
@@ -108,4 +110,4 @@ function mapDispatchToProps( dispatch ) {
 	}
 }
 
-export default connect( null, mapDispatchToProps)(App);
+export default withRouter( connect( null, mapDispatchToProps)(App) );

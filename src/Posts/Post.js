@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Comments from '../Comments/Comments';
 import FormComment from '../Comments/FormComment';
 import ControlPainel from '../utils/ControlPainel';
+import { Link, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { editPost, deletePost } from './actions';
@@ -38,11 +39,16 @@ class Post extends Component{
 
 	render() {
 		const { post } = this.props;
+		
+		let details = false;
+		if ( this.props.match && this.props.match.params.id ) {
+			details = true;
+		}
 
 		return (
 			<div className="tile is-ancestor">
 				<article className="tile is-child box notification ">
-					<p className='title'>{ post.title }</p>
+					<p className='title'><Link to={ `/${ post.category }/${ post.id }` } >{ post.title }</Link></p>
 					<p className='subtitle'>
 						<span className="icon">
 							<i className="mdi mdi-account"></i>
@@ -54,13 +60,36 @@ class Post extends Component{
 						<p>{ post.body }</p>
 					</div>
 
+					{ details &&  
+
+						( <footer className="footer is-bordered" style={ { padding: 0 } }>
+					
+						<div className="container">
+							<div className="content">
+								<div className="columns" >
+									<div className="column">
+										<b>Criado em: </b>{ new Date( post.timestamp ).toDateString() }
+									</div>
+									<div className="column">
+										<b>Score: </b>{ post.voteScore }
+									</div>
+									<div className="column">
+										<b>Num. Comentários: </b>{ post.commentCount }
+									</div>
+								</div>
+							</div>
+						</div>
+					</footer>
+					) } 
+
 					<ControlPainel functions={ 
 							{ 
 								message: () => this.showHidde( document.getElementById( `${ post.id }-comments` ) ),
 								messagePlus: () => this.showHidde( document.getElementById( `${ post.id }-comment` ) ),
 								thumbUp: () => this.vote( post.id, 1 ),
 								thumbDown: () => this.vote( post.id, -1 ),
-								del: () => this.delete( post.id )
+								del: () => this.delete( post.id ),
+								edit: true
 							}
 						} />
 					
@@ -79,8 +108,13 @@ class Post extends Component{
 }
 
 function mapStateToProps( { posts }, currentProps ) {
+	let id = currentProps.id 
+	
+	if ( ! id )
+		id = currentProps.match.params.id ;
 
-	const visiblePost = posts.filter( p => p.id === currentProps.id );
+	const visiblePost = posts.filter( p => p.id === id );
+
 	return { post: visiblePost[0] };
 }
 
@@ -91,4 +125,4 @@ function mapDispatchToProps( dispatch ) {
 	}
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )(Post);
+export default withRouter( connect( mapStateToProps, mapDispatchToProps )(Post) );
