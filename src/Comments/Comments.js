@@ -28,6 +28,30 @@ class Comments extends Component {
 		} );
 	}
 
+	edit = ( _comment ) => {
+		const modal = document.getElementById("modal-comment");
+		modal.classList.add("is-active");
+
+		const form = modal.querySelector( "form" );
+
+		for( const data of form ) {
+			
+			switch( data.name ) {
+				
+				case "body" :
+					data.value = _comment.body;
+
+					break;
+				
+				case "id" :
+					data.value = _comment.id;
+					
+					break;
+			}
+
+		}
+	}
+
 	render () {
 
 		return this.props.comments.length > 0 && this.props.comments.map( comment => (
@@ -49,7 +73,8 @@ class Comments extends Component {
 								{ 
 									thumbUp: () => this.voteComment( comment.id, 1 ),
 									thumbDown: () => this.voteComment( comment.id, -1 ),
-									del: () => this.deleteComment( comment )
+									del: () => this.deleteComment( comment ),
+									edit: () => this.edit( comment )
 								}
 							} />
 				</div>

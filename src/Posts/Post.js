@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Comments from '../Comments/Comments';
 import FormComment from '../Comments/FormComment';
 import ControlPainel from '../utils/ControlPainel';
+import FormEditComment from '../Comments/FormEditComment';
 import { Link, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -18,7 +19,7 @@ class Post extends Component{
 		ServerAPI.votePost( _id, _valor ).then( _post => console.log( _post ) );
 	}
 
-	edit = ( _id, _title, _body ) => {
+	edit = ( ) => {
 		const modal = document.getElementById("modal-editPost");
 		modal.classList.add("is-active");
 
@@ -45,7 +46,6 @@ class Post extends Component{
 
 		}
 
-		ServerAPI.editPost( { id: _id, title: _title, body: _body } ).then( _post => console.log( _post ) );
 	}
 
 	delete = ( _id ) => {
@@ -125,6 +125,8 @@ class Post extends Component{
 					<section className="is-hidden" id={ `${ post.id }-comment` } >
 						<FormComment parentId={ post.id} />	
 					</section>
+
+					<FormEditComment />
 				</article>
 
 			</div>

@@ -32,6 +32,12 @@ class ControlPainel extends Component {
 									</button>
 								</p>
 							)}
+						</div>
+					</div>
+				</div>
+				<div className="navbar-end">
+					<div className="navbar-item">
+						<div className="field is-grouped">
 							{ edit && (
 								<p className="control">
 									<button className="bd-tw-button button" onClick={ edit } >
@@ -42,12 +48,6 @@ class ControlPainel extends Component {
 									</button>
 								</p>
 							)}
-						</div>
-					</div>
-				</div>
-				<div className="navbar-end">
-					<div className="navbar-item">
-						<div className="field is-grouped">
 							{ thumbUp && (
 								<p className="control">
 									<button className="bd-tw-button button" onClick={ thumbUp } >

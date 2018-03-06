@@ -16,7 +16,7 @@ class FormEditPost extends Component {
 
 	addPost = ( _event ) => {
 		_event.preventDefault();
-		document.getElementById("criaPost").classList.add("is-loading");
+		document.getElementById("editPost").classList.add("is-loading");
 		
 		const form = _event.target;
 		
@@ -29,7 +29,7 @@ class FormEditPost extends Component {
 
 		ServerAPI.editPost( obj ).then( resp => {
 			this.props.dispatch( editPost( resp ) );
-			document.getElementById("criaPost").classList.remove("is-loading");
+			document.getElementById("editPost").classList.remove("is-loading");
 		} );
 	}
 	
@@ -61,7 +61,7 @@ class FormEditPost extends Component {
 							<input name="id" type="hidden" />
 						</section>
 						<footer className="modal-card-foot">
-							<button type="submit" id="criaPost" className="button is-success" >Editar</button>
+							<button type="submit" id="editPost" className="button is-success" >Editar</button>
 						</footer>
 					</form>
 				</div>
