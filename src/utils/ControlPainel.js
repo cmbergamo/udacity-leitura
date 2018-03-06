@@ -34,7 +34,7 @@ class ControlPainel extends Component {
 							)}
 							{ edit && (
 								<p className="control">
-									<button className="bd-tw-button button" onClick={ messagePlus } >
+									<button className="bd-tw-button button" onClick={ edit } >
 										{/* <span>Adicionar Cometários</span> */}
 										<span className="icon">
 											<i className="mdi mdi-pencil"></i>

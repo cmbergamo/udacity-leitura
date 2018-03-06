@@ -19,6 +19,32 @@ class Post extends Component{
 	}
 
 	edit = ( _id, _title, _body ) => {
+		const modal = document.getElementById("modal-editPost");
+		modal.classList.add("is-active");
+
+		const form = modal.querySelector( "form" );
+
+		for( const data of form ) {
+
+			switch( data.name ) {
+				case "title" :
+					data.value = this.props.post.title;
+
+					break;
+				
+				case "body" :
+					data.value = this.props.post.body;
+
+					break;
+				
+				case "id" :
+					data.value = this.props.post.id;
+					
+					break;
+			}
+
+		}
+
 		ServerAPI.editPost( { id: _id, title: _title, body: _body } ).then( _post => console.log( _post ) );
 	}
 
@@ -48,7 +74,7 @@ class Post extends Component{
 		return (
 			<div className="tile is-ancestor">
 				<article className="tile is-child box notification ">
-					<p className='title'><Link to={ `/${ post.category }/${ post.id }` } >{ post.title }</Link></p>
+					<Link to={ `/${ post.category }/${ post.id }` } ><p className='title'>{ post.title }</p></Link>
 					<p className='subtitle'>
 						<span className="icon">
 							<i className="mdi mdi-account"></i>
@@ -89,7 +115,7 @@ class Post extends Component{
 								thumbUp: () => this.vote( post.id, 1 ),
 								thumbDown: () => this.vote( post.id, -1 ),
 								del: () => this.delete( post.id ),
-								edit: true
+								edit: () => this.edit()
 							}
 						} />
 					

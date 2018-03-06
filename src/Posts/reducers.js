@@ -1,5 +1,4 @@
 import { ADD_POST, EDIT_POST, LOAD_ALL, DEL_POST } from './actions'
-import { editPost } from '../api/ServerAPI';
 
 export const posts = ( currentstate = [] , action ) => {
 	switch ( action.type ) {
@@ -24,13 +23,14 @@ export const posts = ( currentstate = [] , action ) => {
 
 		case EDIT_POST:
 			
-			let novoArray = currentstate.filter( p => p.id !== action.id );
-			let editedPost = currentstate.filter( p => p.id === action.id);
-
-			editedPost.title = action.title;
-			editedPost.body = action.body;
-
-			novoArray = novoArray.concat( editPost );
+			const novoArray = currentstate.filter( p => p.id !== action.id );
+			const editedPost = currentstate.filter( p => p.id === action.id)[0];
+			
+			novoArray.push( {
+				...editedPost,
+				title: action.title,
+				body: action.body
+			 } );
 
 			return novoArray;
 
