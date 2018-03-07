@@ -27,6 +27,7 @@ export const deletePost = ( id ) => {
 }
 
 export const EDIT_POST = 'EDIT_POST';
+export const EDIT_POST_REP = 'EDIT_POST_REP';
 
 export const editPost = ( { id, title, body } ) => {
 

@@ -35,3 +35,13 @@ export const voteComment = ( comment ) => {
 		comment
 	}
 }
+
+export const EDIT_COMMENT = "EDIT_COMMENT";
+export const EDIT_COMMENT_REP = "EDIT_COMMENT_REP";
+
+export const editComment = ( comment ) => {
+	return {
+		type: EDIT_COMMENT,
+		comment
+	}
+}

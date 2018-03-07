@@ -1,4 +1,4 @@
-import { ADD_POST, EDIT_POST, LOAD_ALL, DEL_POST, LOAD_ALL_REP } from './actions'
+import { ADD_POST, EDIT_POST_REP, DEL_POST, LOAD_ALL_REP } from './actions'
 import ServerAPI from '../api/ServerAPI';
 
 export const posts = ( currentstate = [] , action ) => {
@@ -22,7 +22,7 @@ export const posts = ( currentstate = [] , action ) => {
 
 			return newPost;
 
-		case EDIT_POST:
+		case EDIT_POST_REP:
 			
 			let novoArray = currentstate.filter( p => p.id !== action.id );
 			let editedPost = currentstate.filter( p => p.id === action.id);
