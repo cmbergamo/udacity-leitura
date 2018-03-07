@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import CategoryList from '../Categories/CategoryList';
+import Input from '../Components/Input';
+import TextArea from '../Components/TextArea';
+import Modal from '../Components/Modal';
 
 import * as ServerAPI from '../api/ServerAPI';
 import { generateUUID } from '../utils/utils';
@@ -12,12 +15,9 @@ import 'mdi/css/materialdesignicons.css'
 
 class FormPost extends Component {
 
-	closeModalPost = () => {
-		document.getElementById("modal-post").classList.remove( "is-active" );
-	}
-
 	addPost = ( _event ) => {
 		_event.preventDefault();
+		document.getElementById("buttonModal").classList.add("is-loading");
 		
 		const form = _event.target;
 		
@@ -35,55 +35,21 @@ class FormPost extends Component {
 
 		ServerAPI.createPost( obj ).then( resp => {
 			this.props.dispatch( createPost( resp ) );
-			document.getElementById("criaPost").classList.remove("is-loading");
+			document.getElementById("buttonModal").classList.remove("is-loading");
 		} );
 	}
 	
 	render ( ) {
 		return (
-			<div className="modal" id="modal-post" >
-				<div className="modal-background" onClick={ this.closeModalPost } ></div>
-				<div className="modal-card">
-					<form onSubmit={ this.addPost } >
-						<header className="modal-card-head">
-							<p className="modal-card-title">Novo Post</p>
-							<button type="button" className="delete" aria-label="close" onClick={ this.closeModalPost } ></button>
-						</header>
-						<section className="modal-card-body">
-							<div className="field">
-								<label className="label">Título</label>
-								<div className="control">
-									<input name="title" className="input" type="text" placeholder="Título" />
-								</div>
-							</div>
+			<Modal id="modal-post" submit={ ( _event ) => this.addPost( _event ) } button="Criar" title="Novo Post">
+				<Input name="title" label="Título" placeholder="Título" />
 
-							<div className="field">
-								<label className="label">Autor</label>
-								<div className="control has-icons-left">
-									<input name="author" className="input" type="text" placeholder="Nome do autor" />
-									<span className="icon is-small is-left">
-										<i className="mdi mdi-account"></i>
-									</span>
-								</div>
-							</div>
+				<Input name="author" label="Autor" placeholder="Nome do autor" />
 
-							<CategoryList todas={ false } />
+				<CategoryList todas={ false } />
 
-							<div className="field">
-								<label className="label">Mensagem</label>
-								<div className="control">
-									<textarea name="body" className="textarea" placeholder="Mensagem"></textarea>
-								</div>
-							</div>
-
-						</section>
-						<footer className="modal-card-foot">
-							<button type="submit" id="criaPost" className="button is-success" >Criar</button>
-						</footer>
-					</form>
-				</div>
-			</div>
-
+				<TextArea name="body" label="Mensagem" placeholder="Mensagem" />
+			</Modal>
 		)
 	}
 

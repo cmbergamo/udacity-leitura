@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Input from '../Components/Input';
+import TextArea from '../Components/TextArea';
+import Modal from '../Components/Modal';
 
 import * as ServerAPI from '../api/ServerAPI';
 
@@ -16,7 +19,7 @@ class FormEditPost extends Component {
 
 	addPost = ( _event ) => {
 		_event.preventDefault();
-		document.getElementById("editPost").classList.add("is-loading");
+		document.getElementById("buttonModal").classList.add("is-loading");
 		
 		const form = _event.target;
 		
@@ -29,44 +32,19 @@ class FormEditPost extends Component {
 
 		ServerAPI.editPost( obj ).then( resp => {
 			this.props.dispatch( editPost( resp ) );
-			document.getElementById("editPost").classList.remove("is-loading");
+			document.getElementById("buttonModal").classList.remove("is-loading");
 		} );
 	}
 	
 	render ( ) {
 		return (
-			<div className="modal" id="modal-editPost" >
-				<div className="modal-background" onClick={ this.closeModalPost } ></div>
-				<div className="modal-card">
-					<form onSubmit={ this.addPost } >
-						<header className="modal-card-head">
-							<p className="modal-card-title">Edit Post</p>
-							<button type="button" className="delete" aria-label="close" onClick={ this.closeModalPost } ></button>
-						</header>
-						<section className="modal-card-body">
-							<div className="field">
-								<label className="label">Título</label>
-								<div className="control">
-									<input name="title" className="input" type="text" placeholder="Título" />
-								</div>
-							</div>
+			<Modal id="modal-editPost" submit={ ( _event ) => this.addPost( _event ) } button="Editar" title="Edit Post">
+				<Input name="title" label="Título" placeholder="Título" />
 
-							<div className="field">
-								<label className="label">Mensagem</label>
-								<div className="control">
-									<textarea name="body" className="textarea" placeholder="Mensagem"></textarea>
-								</div>
-							</div>
+				<TextArea name="body" label="Mensagem" placeholder="Mensagem" />
 
-							<input name="id" type="hidden" />
-						</section>
-						<footer className="modal-card-foot">
-							<button type="submit" id="editPost" className="button is-success" >Editar</button>
-						</footer>
-					</form>
-				</div>
-			</div>
-
+				<input name="id" type="hidden" />
+			</Modal>
 		)
 	}
 

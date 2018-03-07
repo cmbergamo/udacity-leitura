@@ -4,6 +4,7 @@ import FormComment from '../Comments/FormComment';
 import ControlPainel from '../utils/ControlPainel';
 import FormEditComment from '../Comments/FormEditComment';
 import { Link, withRouter } from 'react-router-dom';
+import Infos from '../Components/Infos';
 
 import { connect } from 'react-redux';
 import { editPost, deletePost } from './actions';
@@ -87,25 +88,7 @@ class Post extends Component{
 					</div>
 
 					{ details &&  
-
-						( <footer className="footer is-bordered" style={ { padding: 0 } }>
-					
-						<div className="container">
-							<div className="content">
-								<div className="columns" >
-									<div className="column">
-										<b>Criado em: </b>{ new Date( post.timestamp ).toDateString() }
-									</div>
-									<div className="column">
-										<b>Score: </b>{ post.voteScore }
-									</div>
-									<div className="column">
-										<b>Num. Comentários: </b>{ post.commentCount }
-									</div>
-								</div>
-							</div>
-						</div>
-					</footer>
+						( <Infos component={ post } />
 					) } 
 
 					<ControlPainel functions={ 

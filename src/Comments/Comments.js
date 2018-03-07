@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ControlPainel from '../utils/ControlPainel';
+import Infos from '../Components/Infos';
 
 import { connect } from 'react-redux';
 
@@ -69,6 +70,7 @@ class Comments extends Component {
 							<span> { comment.body } </span>
 						</p>
 					</div>
+					<Infos component={ comment } />
 					<ControlPainel functions={ 
 								{ 
 									thumbUp: () => this.voteComment( comment.id, 1 ),

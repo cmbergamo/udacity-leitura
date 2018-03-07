@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ListPosts from './Posts/ListPosts';
-import Category from './Categories/Category';
 import Post from './Posts/Post';
 
 import * as ServerAPI from './api/ServerAPI';
@@ -83,15 +82,11 @@ class App extends Component {
 							</div>
 						</div>
 					</nav>
-						<div className="container">
-							
-						</div>
+					<div className="container">
+						
+					</div>
 				</section>
-				<Route exact path="/:category" render={ obj => {
-					return (
-						<Category params={ obj.match.params } />
-					);
-				 } } />
+				<Route exact path="/:category" component={ ListPosts } />
 
 				 <Route exact path="/:category/:id" component={ Post } />
 				

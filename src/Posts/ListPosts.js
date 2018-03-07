@@ -41,6 +41,8 @@ class ListPosts extends Component {
 function mapStateToProps( currentState, props ) {
 	let { posts = [] , category = '', order = '-voteScore' } = currentState;
 
+	console.log( posts )
+
 	if ( category === undefined || category === '' ) {
 		posts = posts.slice( 0 );
 		posts.sort( sortBy( order ) );
