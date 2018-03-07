@@ -7,7 +7,7 @@ export const comments = ( state = {} , action ) => {
 		case INIT_COMMENTS_REP : 
 			const { comments } = action;
 
-			let novoState = {};
+			let novoState = { ...state };
 			for ( const c of comments ) {
 
 				if ( !novoState[c.parentId] )

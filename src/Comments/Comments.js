@@ -10,7 +10,8 @@ import { initComments, addComment, delComment, voteComment } from './actions';
 class Comments extends Component {
 
 	componentDidMount () {
-		this.props.init( this.props.post );
+		if ( this.props.comments.length === 0 )
+			this.props.init( this.props.post );
 	}
 
 	voteComment = ( _id, _valor ) => {
@@ -79,7 +80,6 @@ class Comments extends Component {
 }
 
 function mapStateToProps( currentState, props ) {
-	
 	let { comments = [], order = '-voteScore' } = currentState;
 
 	comments = comments[props.post] || [];
