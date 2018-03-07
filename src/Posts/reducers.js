@@ -1,37 +1,24 @@
-import { ADD_POST, EDIT_POST_REP, DEL_POST, LOAD_ALL_REP } from './actions'
-import ServerAPI from '../api/ServerAPI';
+import { EDIT_POST_REP, DEL_POST_REP, LOAD_ALL_REP, ADD_POST_REP } from './actions'
 
 export const posts = ( currentstate = [] , action ) => {
 	switch ( action.type ) {
 
-		case ADD_POST:
+		case ADD_POST_REP:
 			
 			let newPost = [{
-				id: action.id,
-				timestamp: action.timestamp,
-				title: action.title,
-				body: action.body,
-				author: action.author,
-				category: action.category,
-				voteScore: action.voteScore,
-				deleted: action.deleted,
-				commentCount: action.commentCount
+				...action.post
 			}]
 
 			newPost = newPost.concat( currentstate );
 
 			return newPost;
 
+		//Para edição e votação;
 		case EDIT_POST_REP:
 			
-			const novoArray = currentstate.filter( p => p.id !== action.id );
-			const editedPost = currentstate.filter( p => p.id === action.id)[0];
+			const novoArray = currentstate.filter( p => p.id !== action.post.id );
 			
-			novoArray.push( {
-				...editedPost,
-				title: action.title,
-				body: action.body
-			 } );
+			novoArray.push( action.post );
 
 			return novoArray;
 
@@ -40,9 +27,9 @@ export const posts = ( currentstate = [] , action ) => {
 			const novosPosts = currentstate.concat(action.posts);
 			return novosPosts;
 			
-		case DEL_POST:
+		case DEL_POST_REP:
 
-			return currentstate.filter( post => post.id !== action.id );
+			return currentstate.filter( post => post.id !== action.post.id );
 
 		default :
 			return currentstate;

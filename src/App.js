@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ListPosts from './Posts/ListPosts';
 import Post from './Posts/Post';
 
-import * as ServerAPI from './api/ServerAPI';
+import ServerAPI from './api/ServerAPI';
 
 import { Route, Link, withRouter } from 'react-router-dom'
 
@@ -17,14 +17,14 @@ import 'mdi/css/materialdesignicons.css'
 class App extends Component {
 
 	state = {
-		categories: [] // Pode ser 'voteScore' ou 'creationDate'
+		categories: []  // Pode ser 'voteScore' ou 'creationDate'
 	}
 
 	componentDidMount() {
 		this.props.initializePost( );
 		
 		ServerAPI.getCategorias().then( data => {
-			this.setState( { categories: data } )
+			this.setState( { categories: data.categories } )
 		} );
 
 	}

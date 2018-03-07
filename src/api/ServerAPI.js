@@ -7,10 +7,6 @@ let auth;
 if ( !auth )
 	auth = "cmb-2"
 
-
-
-// Generate a unique token for storing your bookshelf data on the backend server.
-
 const headers = {
 	'Accept': 'application/json',
 	'Authorization': auth
@@ -36,41 +32,40 @@ export const ServerApi = {
 		} )
 	},
 
-	createPost : ( { id, timestamp, title, body, author, category }  ) =>
-		fetch(`${ api }/posts/`, {
-				method: 'POST',
-				headers: { ...headers,
-					'Content-Type': 'application/json' },
-				body: JSON.stringify( { id, timestamp, title, body, author, category } )
-			}).then(res => res.json()),
+	createPost : ( _post  ) =>
+		ajax.post(`${ api }/posts/`,
+			_post,
+			{
+				...headers,
+				'Content-Type': 'application/json'
+			}
+		),
 
 	getPostDetails : ( _id ) =>
 		fetch(`${ api }/posts/${ _id }`, { headers })
 			.then(res => res.json()),
 
 	votePost : ( _id, _vote ) =>
-		fetch(`${ api }/posts/${ _id }`, {
-			method: 'POST',
-			headers: { ...headers,
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify( { option: _vote > 0 ? 'upVote' : 'downVote' } )
-		}).then(res => res.json()),
+		ajax.post(`${ api }/posts/${ _id }`,
+		{ option: _vote > 0 ? 'upVote' : 'downVote' },
+		{
+			...headers,
+			'Content-Type': 'application/json'
+		}),
 
-	editPost : ( { id, title, body }  ) =>
-		fetch(`${ api }/posts/${ id }`, {
-			method: 'PUT',
-			headers: { ...headers,
+	editPost : ( { id, title, body }  ) => 
+		ajax.put(`${ api }/posts/${ id }`, { title, body }, {
+			 ...headers,
 				'Content-Type': 'application/json' },
-			body: JSON.stringify( { title, body } )
-		}).then(res => res.json()),
+		),
 
 	deletePost : ( id ) =>
-		fetch(`${ api }/posts/${ id }`, {
-			method: 'DELETE',
-			headers: { ...headers,
-				'Content-Type': 'application/json' }
-		}).then(res => res.json()),
+		ajax.delete(`${ api }/posts/${ id }`,
+			{
+				...headers,
+				'Content-Type': 'application/json'
+			}
+		),
 
 	getCommentsFromPost : ( post ) => {
 		return ajax( {
@@ -83,27 +78,24 @@ export const ServerApi = {
 	},
 
 	addComment : ( { id, timestamp, body, author, parentId } ) =>
-		fetch(`${ api }/comments`, {
-			method: 'POST',
-			headers: {
-				...headers,
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify( { id, timestamp, body, author, parentId } )
-		}).then(res => res.json()),
+		ajax.post(`${ api }/comments`, { id, timestamp, body, author, parentId },
+		{
+			...headers,
+			'Content-Type': 'application/json'
+		}),
 
 	getCommentDetails : ( _id ) =>
 		fetch(`${ api }/comments/${ _id }`, { headers })
 			.then(res => res.json()),
 
 	voteComment : ( _id, _vote ) =>
-		fetch(`${ api }/comments/${ _id }`, {
-				method: 'POST',
-				headers: { ...headers,
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify( { option: _vote > 0 ? 'upVote' : 'downVote' } )
-			}).then(res => res.json()),
+		ajax.post(`${ api }/comments/${ _id }`,
+			{ option: _vote > 0 ? 'upVote' : 'downVote' },
+			{
+				...headers,
+				'Content-Type': 'application/json'
+			}
+		),
 
 	editComment : ( { id, timestamp, body }  ) =>
 		fetch(`${ api }/comments/${ id }`, {
@@ -114,11 +106,11 @@ export const ServerApi = {
 		}).then(res => res.json()),
 
 	deleteComment: ( id ) =>
-		fetch(`${ api }/comments/${ id }`, {
-			method: 'DELETE',
-			headers: { ...headers,
-				'Content-Type': 'application/json' }
-		}).then(res => res.json())
+		ajax.delete(`${ api }/comments/${ id }`,
+			{...headers,
+				'Content-Type': 'application/json'
+			}
+		)
 }
 
 export default ServerApi;

@@ -9,6 +9,7 @@ export const initComments = ( post ) => {
 }
 
 export const ADD_COMMENT = "ADD_COMMENT";
+export const ADD_COMMENT_REP = "ADD_COMMENT_REP";
 
 export const addComment = ( comment ) => {
 	return {
@@ -18,6 +19,7 @@ export const addComment = ( comment ) => {
 }
 
 export const EDI_COMMENT = "EDI_COMMENT";
+export const EDI_COMMENT_REP = "EDIT_COMMENT_REP";
 
 export const editComment = ( comment ) => {
 	return {
@@ -27,6 +29,7 @@ export const editComment = ( comment ) => {
 }
 
 export const DEL_COMMENT = "DEL_COMMENT";
+export const DEL_COMMENT_REP = "DEL_COMMENT_REP";
 
 export const delComment = ( comment ) => {
 	return {
@@ -37,20 +40,10 @@ export const delComment = ( comment ) => {
 
 export const VOTE_COMMENT = "VOTE_COMMENT";
 
-export const voteComment = ( comment ) => { 
-	
+export const voteComment = ( comment, vote ) => { 
 	return {
 		type: VOTE_COMMENT,
-		comment
-	}
-}
-
-export const EDIT_COMMENT = "EDIT_COMMENT";
-export const EDIT_COMMENT_REP = "EDIT_COMMENT_REP";
-
-export const editComment = ( comment ) => {
-	return {
-		type: EDIT_COMMENT,
-		comment
+		comment,
+		vote
 	}
 }

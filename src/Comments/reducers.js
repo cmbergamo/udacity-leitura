@@ -1,5 +1,5 @@
-import { INIT_COMMENTS_REP, ADD_COMMENT, DEL_COMMENT, VOTE_COMMENT, EDI_COMMENT } from './actions';
-import { DEL_POST } from '../Posts/actions';
+import { INIT_COMMENTS_REP, DEL_COMMENT_REP, EDI_COMMENT_REP, ADD_COMMENT_REP } from './actions';
+import { DEL_POST_REP } from '../Posts/actions';
 
 export const comments = ( state = {} , action ) => {
 
@@ -18,7 +18,7 @@ export const comments = ( state = {} , action ) => {
 
 			return novoState;
 			
-		case ADD_COMMENT :
+		case ADD_COMMENT_REP :
 			let { comment } = action;
 			novoState = { ...state }; 
 			if ( !novoState[comment.parentId] )
@@ -28,8 +28,9 @@ export const comments = ( state = {} , action ) => {
 			
 
 			return novoState;
-
-		case EDI_COMMENT :
+		
+		// Para edição e votação :
+		case EDI_COMMENT_REP :
 			comment = action.comment;
 			novoState = { ...state }; 
 			
@@ -40,29 +41,18 @@ export const comments = ( state = {} , action ) => {
 			
 			return novoState;
 			
-		case DEL_COMMENT :
+		case DEL_COMMENT_REP :
+			
 			return {
 				...state,
 				[action.comment.parentId] : state[action.comment.parentId].filter( c => c.id !== action.comment.id )
 			}
 
-		case DEL_POST :
+		case DEL_POST_REP :
 			novoState = { ...state };
-			delete novoState[ action.id ];
+			delete novoState[ action.post.id ];
 			
 			return novoState;
-		
-		case VOTE_COMMENT :
-			novoState = { ...state };
-			let temp = novoState[action.comment.parentId].filter( c => c.id !== action.comment.id );
-
-			temp.push( action.comment );
-
-			
-			return { 
-				...novoState,
-				[action.comment.parentId] : temp
-			};
 
 		default :
 			return state;

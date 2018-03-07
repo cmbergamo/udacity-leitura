@@ -7,9 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Infos from '../Components/Infos';
 
 import { connect } from 'react-redux';
-import { editPost, deletePost } from './actions';
-
-import ServerAPI from '../api/ServerAPI'
+import { editPost, deletePost, votePost } from './actions';
 
 import 'bulma/css/bulma.css';
 import 'mdi/css/materialdesignicons.css'
@@ -17,7 +15,7 @@ import 'mdi/css/materialdesignicons.css'
 class Post extends Component{
 
 	vote = ( _id, _valor ) => {
-		ServerAPI.votePost( _id, _valor ).then( _post => console.log( _post ) );
+		this.props.votePost( _id, _valor );
 	}
 
 	edit = ( ) => {
@@ -50,9 +48,7 @@ class Post extends Component{
 	}
 
 	delete = ( _id ) => {
-		ServerAPI.deletePost( _id ).then( _post => {
-			this.props.deletePost( _post.id );
-		} );
+		this.props.deletePost( _id );
 	}
 
 	showHidde = ( _element ) => {
@@ -133,7 +129,8 @@ function mapStateToProps( { posts }, currentProps ) {
 function mapDispatchToProps( dispatch ) {
 	return {
 		editPost: (post) => dispatch( editPost( post ) ),
-		deletePost: (post) => dispatch( deletePost( post ) )
+		deletePost: (post) => dispatch( deletePost( post ) ),
+		votePost: (post, vote) => dispatch( votePost( post, vote ) )
 	}
 }
 

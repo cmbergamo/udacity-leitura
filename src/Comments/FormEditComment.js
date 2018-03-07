@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import Input from '../Components/Input';
 import TextArea from '../Components/TextArea';
 import Modal from '../Components/Modal';
 
 import { connect } from 'react-redux';
 import { editComment } from './actions';
 
-import * as ServerAPI from '../api/ServerAPI';
+import ServerAPI from '../api/ServerAPI';
 
 class FormEditComment extends Component {
 

@@ -3,14 +3,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addComment } from './actions';
 
-import ServerAPI from '../api/ServerAPI';
 import { generateUUID } from '../utils/utils';
 
 class FormComment extends Component {
 
 	createComment = ( _event ) => {
 		_event.preventDefault();
-		document.getElementById("criaPost").classList.add("is-loading");
+		document.getElementById("buttonModal").classList.add("is-loading");
 
 		const form = _event.target;
 
@@ -24,12 +23,9 @@ class FormComment extends Component {
 		obj.timestamp = new Date().getTime();
 		obj.id = generateUUID();
 
-		ServerAPI.addComment( obj ).then( resp => {
-			
-			this.props.dispatch( addComment( resp ) );
-			document.getElementById("criaPost").classList.remove("is-loading");
-		} );
-
+		this.props.dispatch( addComment( obj ) );
+		document.getElementById("buttonModal").classList.remove("is-loading");
+		
 	}
 
 	render() {

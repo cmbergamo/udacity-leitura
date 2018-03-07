@@ -4,7 +4,6 @@ import Input from '../Components/Input';
 import TextArea from '../Components/TextArea';
 import Modal from '../Components/Modal';
 
-import ServerAPI from '../api/ServerAPI';
 import { generateUUID } from '../utils/utils';
 
 import { connect } from 'react-redux';
@@ -31,12 +30,8 @@ class FormPost extends Component {
 		obj.id = generateUUID();
 		obj.timestamp = new Date().getTime();
 
-		console.log( obj );
-
-		ServerAPI.createPost( obj ).then( resp => {
-			this.props.dispatch( createPost( resp ) );
-			document.getElementById("buttonModal").classList.remove("is-loading");
-		} );
+		this.props.dispatch( createPost( obj ) );
+		document.getElementById("buttonModal").classList.remove("is-loading");
 	}
 	
 	render ( ) {

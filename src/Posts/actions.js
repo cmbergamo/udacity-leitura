@@ -1,10 +1,11 @@
 export const ADD_POST = 'ADD_POST';
+export const ADD_POST_REP = 'ADD_POST_REP';
 
 //export const createPost = ( { title, body, author, category } ) => {
 export const createPost = ( { id = 0, timestamp = Date.now() , title = '' , body = '' , author = '' , category = '' , voteScore = 1, deleted = false, commentCount = 1 } ) => {
 	
 	return { type: ADD_POST,
-		id,
+		post: {id,
 		timestamp,
 		title,
 		body, //'Texto do post',
@@ -13,10 +14,11 @@ export const createPost = ( { id = 0, timestamp = Date.now() , title = '' , body
 		voteScore,
 		deleted,
 		commentCount
-	};
+	} };
 }
 
 export const DEL_POST = 'DEL_POST';
+export const DEL_POST_REP = 'DEL_POST_REP';
 
 export const deletePost = ( id ) => {
 	
@@ -29,18 +31,27 @@ export const deletePost = ( id ) => {
 export const EDIT_POST = 'EDIT_POST';
 export const EDIT_POST_REP = 'EDIT_POST_REP';
 
-export const editPost = ( { id, title, body } ) => {
-
+export const editPost = ( post ) => {
 	return {
 		type: EDIT_POST,
-		id,
-		title,
-		body 
+		post
+	}
+
+}
+
+export const VOTE_POST = 'VOTE_POST';
+
+export const votePost = ( post, vote ) => {
+	return {
+		type: VOTE_POST,
+		post,
+		vote
 	}
 
 }
 
 export const LOAD_ALL = 'LOAD_ALL';
+export const LOAD_ALL_REP = 'LOAD_ALL_REP';
 
 export const loadPosts = ( posts ) => {
 	
@@ -50,8 +61,6 @@ export const loadPosts = ( posts ) => {
 	}
 
 }
-
-export const LOAD_ALL_REP = 'LOAD_ALL_REP';
 
 /*export const loadPosts = (  ) => {
 	

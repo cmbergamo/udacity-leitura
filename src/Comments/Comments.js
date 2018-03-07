@@ -4,7 +4,6 @@ import Infos from '../Components/Infos';
 
 import { connect } from 'react-redux';
 
-import ServerAPI from '../api/ServerAPI';
 import sortBy from 'sort-by';
 import { initComments, addComment, delComment, voteComment } from './actions';
 
@@ -15,15 +14,11 @@ class Comments extends Component {
 	}
 
 	voteComment = ( _id, _valor ) => {
-		ServerAPI.voteComment( _id, _valor ).then( _c => {
-			this.props.voteComment( _c );
-		 } );
+		this.props.voteComment( _id, _valor );
 	}
 
 	deleteComment = ( _comment ) => {
-		ServerAPI.deleteComment( _comment.id ).then( _c => {
-			this.props.delComment( _comment );
-		} );
+		this.props.delComment( _comment.id );
 	}
 
 	edit = ( _comment ) => {
@@ -100,7 +95,7 @@ function mapDispatchToProps ( dispatch ) {
 		init: ( comments ) => dispatch( initComments( comments ) ),
 		addComment: ( comment ) => dispatch( addComment( comment ) ),
 		delComment: ( comment ) => dispatch( delComment ( comment ) ),
-		voteComment: ( comment ) => dispatch( voteComment( comment ) )
+		voteComment: ( comment, vote ) => dispatch( voteComment( comment, vote ) )
 	}
 }
 

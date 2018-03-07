@@ -3,8 +3,6 @@ import Input from '../Components/Input';
 import TextArea from '../Components/TextArea';
 import Modal from '../Components/Modal';
 
-import * as ServerAPI from '../api/ServerAPI';
-
 import { connect } from 'react-redux';
 import { editPost } from './actions';
 
@@ -30,10 +28,8 @@ class FormEditPost extends Component {
 				obj[ data.name ] =  data.value ;
 		}
 
-		ServerAPI.editPost( obj ).then( resp => {
-			this.props.dispatch( editPost( resp ) );
-			document.getElementById("buttonModal").classList.remove("is-loading");
-		} );
+		this.props.dispatch( editPost( obj ) );
+		document.getElementById("buttonModal").classList.remove("is-loading");
 	}
 	
 	render ( ) {
