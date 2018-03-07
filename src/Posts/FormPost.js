@@ -36,14 +36,14 @@ class FormPost extends Component {
 	
 	render ( ) {
 		return (
-			<Modal id="modal-post" submit={ ( _event ) => this.addPost( _event ) } button="Criar" title="Novo Post">
-				<Input name="title" label="Título" placeholder="Título" />
+			<Modal objId="modal-post" submit={ ( _event ) => this.addPost( _event ) } objButton="Criar" title="Novo Post">
+				<Input objName="title" objLabel="Título" objPlaceholder="Título" />
 
-				<Input name="author" label="Autor" placeholder="Nome do autor" />
+				<Input objName="author" objLabel="Autor" objPlaceholder="Nome do autor" icon />
 
 				<CategoryList todas={ false } />
 
-				<TextArea name="body" label="Mensagem" placeholder="Mensagem" />
+				<TextArea objName="body" objLabel="Mensagem" objPlaceholder="Mensagem" />
 			</Modal>
 		)
 	}

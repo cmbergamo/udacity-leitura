@@ -34,8 +34,8 @@ class FormEditComment extends Component {
 
 	render() {
 		return (
-			<Modal id="modal-comment" submit={ ( _event ) => this.editComment( _event ) } button="Editar" title="Edita Comentário">
-				<TextArea name="body" label="Mensagem" placeholder="Mensagem" />
+			<Modal objId="modal-comment" submit={ ( _event ) => this.editComment( _event ) } objButton="Editar" title="Edita Comentário">
+				<TextArea objName="body" objLabel="Mensagem" objPlaceholder="Mensagem" />
 
 				<input name="id" type="hidden" />
 			</Modal>

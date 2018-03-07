@@ -4,15 +4,18 @@ import PropTypes from 'prop-types';
 class Input extends Component {
 
 	render () {
+		const cn = this.props.icon ? "control has-icons-left" : "control"
 
 		return (
 			<div className="field">
-				<label className="label">{ this.props.label }</label>
-				<div className="control has-icons-left">
-					<input name={ this.props.name } className="input" type="text" placeholder={ this.props.placeholder } />
-					<span className="icon is-small is-left">
-						<i className="mdi mdi-account"></i>
-					</span>
+				<label className="label">{ this.props.objLabel }</label>
+				<div className={ cn }>
+					<input name={ this.props.objName } className="input" type="text" placeholder={ this.props.objPlaceholder } />
+					{ this.props.icon && (
+						<span className="icon is-small is-left">
+							<i className="mdi mdi-account"></i>
+						</span>
+					) }
 				</div>
 			</div>
 		)
@@ -20,10 +23,14 @@ class Input extends Component {
 
 }
 
+Input.defaultProps = {
+	icon: false
+};
+
 Input.propTypes = {
-	name: PropTypes.string.isrequired,
-	label: PropTypes.string.isrequired,
-	placeholder: PropTypes.string.isrequired
+	objName: PropTypes.string.isRequired,
+	objLabel: PropTypes.string.isRequired,
+	objPlaceholder: PropTypes.string.isRequired,
 }
 
 export default Input;

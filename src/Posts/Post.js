@@ -11,8 +11,13 @@ import { editPost, deletePost, votePost } from './actions';
 
 import 'bulma/css/bulma.css';
 import 'mdi/css/materialdesignicons.css'
+import { ServerApi } from '../api/ServerAPI';
 
 class Post extends Component{
+
+	state = {
+		post: {}
+	}
 
 	vote = ( _id, _valor ) => {
 		this.props.votePost( _id, _valor );
@@ -60,8 +65,18 @@ class Post extends Component{
 
 	}
 
+	componentWillMount () {
+		if ( !this.props.post ) {
+			ServerApi.getPostDetails( this.props.match.params.id ).then( p => {
+				this.setState( { post: p } );
+			} );
+		} else {
+			this.setState( { post: this.props.post } );
+		}
+	}
+
 	render() {
-		const { post } = this.props;
+		const { post } = this.state;
 		
 		let details = false;
 		if ( this.props.match && this.props.match.params.id ) {

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Input from '../Components/Input';
+import TextArea from '../Components/TextArea';
 
 import { connect } from 'react-redux';
 import { addComment } from './actions';
@@ -30,27 +32,13 @@ class FormComment extends Component {
 
 	render() {
 		return (
-			<div id="form-post" >
+			<div id="form-comment" >
 				<form onSubmit={ this.createComment }>
 					<section className="modal-card-body">
 					
+						<Input objName="author" objLabel="Autor" objPlaceholder="Nome do autor" icon />
 
-						<div className="field">
-							<label className="label">Autor</label>
-							<div className="control has-icons-left">
-								<input name="author" className="input" type="text" placeholder="Nome do autor" defaultValue="" />
-								<span className="icon is-small is-left">
-									<i className="mdi mdi-account"></i>
-								</span>
-							</div>
-						</div>
-
-						<div className="field">
-							<label className="label">Mensagem</label>
-							<div className="control">
-								<textarea name="body" className="textarea" placeholder="Mensagem"></textarea>
-							</div>
-						</div>
+						<TextArea objName="body" objLabel="Mensagem" objPlaceholder="Mensagem" />
 
 						<input type="hidden" name="parentId" value={ this.props.parentId } />
 

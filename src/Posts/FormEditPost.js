@@ -34,10 +34,10 @@ class FormEditPost extends Component {
 	
 	render ( ) {
 		return (
-			<Modal id="modal-editPost" submit={ ( _event ) => this.addPost( _event ) } button="Editar" title="Edit Post">
-				<Input name="title" label="Título" placeholder="Título" />
+			<Modal objId="modal-editPost" submit={ ( _event ) => this.addPost( _event ) } objButton="Editar" title="Edit Post">
+				<Input objName="title" objLabel="Título" objPlaceholder="Título" />
 
-				<TextArea name="body" label="Mensagem" placeholder="Mensagem" />
+				<TextArea objName="body" objLabel="Mensagem" objPlaceholder="Mensagem" />
 
 				<input name="id" type="hidden" />
 			</Modal>
