@@ -5,7 +5,7 @@ class ControlPainel extends Component {
 
 
 	render() {
-		const { message, messagePlus, thumbUp, thumbDown, del } = this.props.functions;
+		const { message, messagePlus, thumbUp, thumbDown, del, edit } = this.props.functions;
 
 		return (
 			<nav className="navbar is-light">
@@ -38,6 +38,16 @@ class ControlPainel extends Component {
 				<div className="navbar-end">
 					<div className="navbar-item">
 						<div className="field is-grouped">
+							{ edit && (
+								<p className="control">
+									<button className="bd-tw-button button" onClick={ edit } >
+										{/* <span>Adicionar Cometários</span> */}
+										<span className="icon">
+											<i className="mdi mdi-pencil"></i>
+										</span>
+									</button>
+								</p>
+							)}
 							{ thumbUp && (
 								<p className="control">
 									<button className="bd-tw-button button" onClick={ thumbUp } >

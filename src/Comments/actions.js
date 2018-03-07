@@ -17,6 +17,15 @@ export const addComment = ( comment ) => {
 	}
 }
 
+export const EDI_COMMENT = "EDI_COMMENT";
+
+export const editComment = ( comment ) => {
+	return {
+		type: EDI_COMMENT,
+		comment
+	}
+}
+
 export const DEL_COMMENT = "DEL_COMMENT";
 
 export const delComment = ( comment ) => {

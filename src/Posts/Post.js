@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Comments from '../Comments/Comments';
 import FormComment from '../Comments/FormComment';
 import ControlPainel from '../utils/ControlPainel';
+import FormEditComment from '../Comments/FormEditComment';
+import { Link, withRouter } from 'react-router-dom';
+import Infos from '../Components/Infos';
 
 import { connect } from 'react-redux';
 import { editPost, deletePost } from './actions';
@@ -17,8 +20,33 @@ class Post extends Component{
 		ServerAPI.votePost( _id, _valor ).then( _post => console.log( _post ) );
 	}
 
-	edit = ( _id, _title, _body ) => {
-		ServerAPI.editPost( { id: _id, title: _title, body: _body } ).then( _post => console.log( _post ) );
+	edit = ( ) => {
+		const modal = document.getElementById("modal-editPost");
+		modal.classList.add("is-active");
+
+		const form = modal.querySelector( "form" );
+
+		for( const data of form ) {
+
+			switch( data.name ) {
+				case "title" :
+					data.value = this.props.post.title;
+
+					break;
+				
+				case "body" :
+					data.value = this.props.post.body;
+
+					break;
+				
+				case "id" :
+					data.value = this.props.post.id;
+					
+					break;
+			}
+
+		}
+
 	}
 
 	delete = ( _id ) => {
@@ -38,52 +66,67 @@ class Post extends Component{
 
 	render() {
 		const { post } = this.props;
+		
+		let details = false;
+		if ( this.props.match && this.props.match.params.id ) {
+			details = true;
+		}
 
-		if ( post )
-			return (
-				<div className="tile is-ancestor">
-					<article className="tile is-child box notification ">
-						<p className='title'>{ post.title }</p>
-						<p className='subtitle'>
-							<span className="icon">
-								<i className="mdi mdi-account"></i>
-							</span>
-							{ post.author }
-						</p>
+		return (
+			<div className="tile is-ancestor">
+				<article className="tile is-child box notification ">
+					<Link to={ `/${ post.category }/${ post.id }` } ><p className='title'>{ post.title }</p></Link>
+					<p className='subtitle'>
+						<span className="icon">
+							<i className="mdi mdi-account"></i>
+						</span>
+						{ post.author }
+					</p>
 
-						<div className='content' >
-							<p>{ post.body }</p>
-						</div>
+					<div className='content' >
+						<p>{ post.body }</p>
+					</div>
 
-						<ControlPainel functions={ 
-								{ 
-									message: () => this.showHidde( document.getElementById( `${ post.id }-comments` ) ),
-									messagePlus: () => this.showHidde( document.getElementById( `${ post.id }-comment` ) ),
-									thumbUp: () => this.vote( post.id, 1 ),
-									thumbDown: () => this.vote( post.id, -1 ),
-									del: () => this.delete( post.id )
-								}
-							} />
-						
-						<section className="section is-hidden" id={ `${ post.id }-comments` } >
-							<Comments post={ post.id } />
-						</section>
-						<section className="is-hidden" id={ `${ post.id }-comment` } >
-							<FormComment parentId={ post.id} />	
-						</section>
-					</article>
+					{ details &&  
+						( <Infos component={ post } />
+					) } 
 
-				</div>
-			);
-		else
-			return null;
+					<ControlPainel functions={ 
+							{ 
+								message: () => this.showHidde( document.getElementById( `${ post.id }-comments` ) ),
+								messagePlus: () => this.showHidde( document.getElementById( `${ post.id }-comment` ) ),
+								thumbUp: () => this.vote( post.id, 1 ),
+								thumbDown: () => this.vote( post.id, -1 ),
+								del: () => this.delete( post.id ),
+								edit: () => this.edit()
+							}
+						} />
+					
+					<section className="section is-hidden" id={ `${ post.id }-comments` } >
+						<Comments post={ post.id } />
+					</section>
+					<section className="is-hidden" id={ `${ post.id }-comment` } >
+						<FormComment parentId={ post.id} />	
+					</section>
+
+					<FormEditComment />
+				</article>
+
+			</div>
+		);
+
 	}
 
 }
 
 function mapStateToProps( { posts }, currentProps ) {
+	let id = currentProps.id 
+	
+	if ( ! id )
+		id = currentProps.match.params.id ;
 
-	const visiblePost = posts.filter( p => p.id === currentProps.id );
+	const visiblePost = posts.filter( p => p.id === id );
+
 	return { post: visiblePost[0] };
 }
 
@@ -94,4 +137,4 @@ function mapDispatchToProps( dispatch ) {
 	}
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )(Post);
+export default withRouter( connect( mapStateToProps, mapDispatchToProps )(Post) );

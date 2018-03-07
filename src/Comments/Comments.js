@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ControlPainel from '../utils/ControlPainel';
+import Infos from '../Components/Infos';
 
 import { connect } from 'react-redux';
 
@@ -25,6 +26,30 @@ class Comments extends Component {
 		} );
 	}
 
+	edit = ( _comment ) => {
+		const modal = document.getElementById("modal-comment");
+		modal.classList.add("is-active");
+
+		const form = modal.querySelector( "form" );
+
+		for( const data of form ) {
+			
+			switch( data.name ) {
+				
+				case "body" :
+					data.value = _comment.body;
+
+					break;
+				
+				case "id" :
+					data.value = _comment.id;
+					
+					break;
+			}
+
+		}
+	}
+
 	render () {
 
 		return this.props.comments.length > 0 && this.props.comments.map( comment => (
@@ -42,11 +67,13 @@ class Comments extends Component {
 							<span> { comment.body } </span>
 						</p>
 					</div>
+					<Infos component={ comment } />
 					<ControlPainel functions={ 
 								{ 
 									thumbUp: () => this.voteComment( comment.id, 1 ),
 									thumbDown: () => this.voteComment( comment.id, -1 ),
-									del: () => this.deleteComment( comment )
+									del: () => this.deleteComment( comment ),
+									edit: () => this.edit( comment )
 								}
 							} />
 				</div>
@@ -58,7 +85,7 @@ class Comments extends Component {
 
 function mapStateToProps( currentState, props ) {
 	
-	let { comments = [], order = 'voteScore' } = currentState;
+	let { comments = [], order = '-voteScore' } = currentState;
 
 	comments = comments[props.post] || [];
 	comments = comments.slice( 0 )

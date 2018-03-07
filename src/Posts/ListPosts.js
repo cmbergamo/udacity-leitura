@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Post from './Post';
 import FormPost from './FormPost';
+import FormEditPost from './FormEditPost';
 
 import { connect } from 'react-redux';
 
@@ -19,7 +20,7 @@ class ListPosts extends Component {
 				<div  className="media">
 					<div className="media-left" />
 					<div className="media-content" style={ { overflow: "visible"} } >
-						{ this.props.posts && this.props.posts.map( ( post, order ) => ( <Post id={ post.id }  key={ order } /> ) ) }
+						{ this.props.posts && this.props.posts.map( ( post, order ) =>  ( <Post id={ post.id }  key={ post.id } /> ) ) }
 					</div>
 
 					<div className="media-right">
@@ -31,13 +32,14 @@ class ListPosts extends Component {
 					</div>
 				</div>
 				<FormPost />
+				<FormEditPost />
 			</section>
 		);
 	}
 }
 
 function mapStateToProps( currentState, props ) {
-	let { posts = [] , category = '', order = 'voteScore' } = currentState;
+	let { posts = [] , category = '', order = '-voteScore' } = currentState;
 
 	if ( category === undefined || category === '' ) {
 		posts = posts.slice( 0 );

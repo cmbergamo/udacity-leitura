@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import CategoryList from '../Categories/CategoryList';
 import Input from '../Components/Input';
 import TextArea from '../Components/TextArea';
 import Modal from '../Components/Modal';
 
-import ServerAPI from '../api/ServerAPI';
-import { generateUUID } from '../utils/utils';
+import * as ServerAPI from '../api/ServerAPI';
 
 import { connect } from 'react-redux';
-import { createPost } from './actions';
+import { editPost } from './actions';
 
 import 'bulma/css/bulma.css';
 import 'mdi/css/materialdesignicons.css'
 
-class FormPost extends Component {
+class FormEditPost extends Component {
+
+	closeModalPost = () => {
+		document.getElementById("modal-editPost").classList.remove( "is-active" );
+	}
 
 	addPost = ( _event ) => {
 		_event.preventDefault();
@@ -28,31 +30,24 @@ class FormPost extends Component {
 				obj[ data.name ] =  data.value ;
 		}
 
-		obj.id = generateUUID();
-		obj.timestamp = new Date().getTime();
-
-		console.log( obj );
-
-		ServerAPI.createPost( obj ).then( resp => {
-			this.props.dispatch( createPost( resp ) );
+		ServerAPI.editPost( obj ).then( resp => {
+			this.props.dispatch( editPost( resp ) );
 			document.getElementById("buttonModal").classList.remove("is-loading");
 		} );
 	}
 	
 	render ( ) {
 		return (
-			<Modal id="modal-post" submit={ ( _event ) => this.addPost( _event ) } button="Criar" title="Novo Post">
+			<Modal id="modal-editPost" submit={ ( _event ) => this.addPost( _event ) } button="Editar" title="Edit Post">
 				<Input name="title" label="Título" placeholder="Título" />
 
-				<Input name="author" label="Autor" placeholder="Nome do autor" />
-
-				<CategoryList todas={ false } />
-
 				<TextArea name="body" label="Mensagem" placeholder="Mensagem" />
+
+				<input name="id" type="hidden" />
 			</Modal>
 		)
 	}
 
 }
 
-export default connect( )(FormPost);
+export default connect( )(FormEditPost);
