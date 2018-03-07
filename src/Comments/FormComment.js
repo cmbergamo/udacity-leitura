@@ -32,7 +32,7 @@ class FormComment extends Component {
 
 	render() {
 		return (
-			<div id="form-comment" >
+			<div>
 				<form onSubmit={ this.createComment }>
 					<section className="modal-card-body">
 					
@@ -40,7 +40,7 @@ class FormComment extends Component {
 
 						<TextArea objName="body" objLabel="Mensagem" objPlaceholder="Mensagem" />
 
-						<input type="hidden" name="parentId" value={ this.props.parentId } />
+						<input type="hidden" name="parentId" defaultValue={ this.props.parentId } />
 
 					</section>
 					<footer className="modal-card-foot">

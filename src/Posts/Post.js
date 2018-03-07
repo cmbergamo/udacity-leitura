@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Comments from '../Comments/Comments';
 import FormComment from '../Comments/FormComment';
 import ControlPainel from '../utils/ControlPainel';
-import FormEditComment from '../Comments/FormEditComment';
 import { Link, withRouter } from 'react-router-dom';
 import Infos from '../Components/Infos';
 
@@ -77,6 +76,7 @@ class Post extends Component{
 
 	render() {
 		const { post } = this.state;
+		const id = post.id || this.props.match.params.id;
 		
 		let details = false;
 		if ( this.props.match && this.props.match.params.id ) {
@@ -86,7 +86,7 @@ class Post extends Component{
 		return (
 			<div className="tile is-ancestor">
 				<article className="tile is-child box notification ">
-					<Link to={ `/${ post.category }/${ post.id }` } ><p className='title'>{ post.title }</p></Link>
+					<Link to={ `/${ post.category }/${ id }` } ><p className='title'>{ post.title }</p></Link>
 					<p className='subtitle'>
 						<span className="icon">
 							<i className="mdi mdi-account"></i>
@@ -104,23 +104,22 @@ class Post extends Component{
 
 					<ControlPainel functions={ 
 							{ 
-								message: () => this.showHidde( document.getElementById( `${ post.id }-comments` ) ),
-								messagePlus: () => this.showHidde( document.getElementById( `${ post.id }-comment` ) ),
-								thumbUp: () => this.vote( post.id, 1 ),
-								thumbDown: () => this.vote( post.id, -1 ),
-								del: () => this.delete( post.id ),
+								message: () => this.showHidde( document.getElementById( `${ id }-comments` ) ),
+								messagePlus: () => this.showHidde( document.getElementById( `${ id }-comment` ) ),
+								thumbUp: () => this.vote( id, 1 ),
+								thumbDown: () => this.vote( id, -1 ),
+								del: () => this.delete( id ),
 								edit: () => this.edit()
 							}
 						} />
 					
-					<section className="section is-hidden" id={ `${ post.id }-comments` } >
-						<Comments post={ post.id } />
+					<section className="section is-hidden" id={ `${ id }-comments` } >
+						<Comments post={ id } />
 					</section>
-					<section className="is-hidden" id={ `${ post.id }-comment` } >
-						<FormComment parentId={ post.id} />	
+					<section className="is-hidden" id={ `${ id }-comment` } >
+						<FormComment parentId={ id} />	
 					</section>
 
-					<FormEditComment />
 				</article>
 
 			</div>

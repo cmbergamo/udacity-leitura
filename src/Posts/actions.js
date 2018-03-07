@@ -61,12 +61,3 @@ export const loadPosts = ( posts ) => {
 	}
 
 }
-
-/*export const loadPosts = (  ) => {
-	
-	return {
-		type: LOAD_POSTS,
-	}
-
-} */
-

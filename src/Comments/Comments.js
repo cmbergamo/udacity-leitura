@@ -4,14 +4,17 @@ import Infos from '../Components/Infos';
 
 import { connect } from 'react-redux';
 
+import { withRouter } from 'react-router-dom'
+
 import sortBy from 'sort-by';
 import { initComments, addComment, delComment, voteComment } from './actions';
 
 class Comments extends Component {
 
-	componentDidMount () {
-		if ( this.props.comments.length === 0 )
+	componentWillMount () {
+		if ( this.props.comments.length === 0 ) {
 			this.props.init( this.props.post );
+		}
 	}
 
 	voteComment = ( _id, _valor ) => {
@@ -86,7 +89,7 @@ function mapStateToProps( currentState, props ) {
 	comments = comments.slice( 0 )
 
 	comments.sort( sortBy( order ) ); 
-
+	
 	return { comments }
 }
 
@@ -99,4 +102,4 @@ function mapDispatchToProps ( dispatch ) {
 	}
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )( Comments );
+export default withRouter( connect( mapStateToProps, mapDispatchToProps )( Comments ) );
