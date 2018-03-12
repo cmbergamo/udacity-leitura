@@ -15,7 +15,7 @@ import { ServerApi } from '../api/ServerAPI';
 class Post extends Component{
 
 	state = {
-		post: {}
+		post: undefined
 	}
 
 	vote = ( _id, _valor ) => {
@@ -66,24 +66,31 @@ class Post extends Component{
 
 	componentWillMount () {
 		if ( !this.props.post ) {
+			console.log( "Entrou if" );
 			ServerApi.getPostDetails( this.props.match.params.id ).then( p => {
-				this.setState( { post: p } );
+				if ( p.id )
+					this.setState( { post: p } );
 			} );
 		} else {
+			console.log( "Entrou else" );
 			this.setState( { post: this.props.post } );
 		}
 	}
 
 	render() {
 		const { post } = this.state;
-		const id = post.id || this.props.match.params.id;
+		let id = 0;
+		
+		if ( post )
+			id = post.id || this.props.match.params.id;
 		
 		let details = false;
 		if ( this.props.match && this.props.match.params.id ) {
 			details = true;
 		}
 
-		return (
+		console.log( "renderizou" );
+		return post ? (
 			<div className="tile is-ancestor">
 				<article className="tile is-child box notification ">
 					<Link to={ `/${ post.category }/${ id }` } ><p className='title'>{ post.title }</p></Link>
@@ -98,9 +105,11 @@ class Post extends Component{
 						<p>{ post.body }</p>
 					</div>
 
-					{ details &&  
-						( <Infos component={ post } />
-					) } 
+					{/* { details &&   */
+					console.log( "Post", post )
+					}
+						<Infos component={ post } />
+					{/* ) }  */}
 
 					<ControlPainel functions={ 
 							{ 
@@ -123,6 +132,10 @@ class Post extends Component{
 				</article>
 
 			</div>
+		) : ( 
+			<div className="notification is-danger">
+				<b>Post não encontrado!</b>
+			</div>
 		);
 
 	}
@@ -135,9 +148,11 @@ function mapStateToProps( { posts }, currentProps ) {
 	if ( ! id )
 		id = currentProps.match.params.id ;
 
-	const visiblePost = posts.filter( p => p.id === id );
+	const visiblePost = posts.find( p => p.id === id );
 
-	return { post: visiblePost[0] };
+	console.log( "Selecionado", visiblePost );
+
+	return { post: visiblePost };
 }
 
 function mapDispatchToProps( dispatch ) {

@@ -1,35 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-function Infos( props ) {
+class Infos extends Component {
 
-	const { component } = props;
+	render() {
+		console.log( "Infos", this.props.component );
 
-	let show = false;
+		const { component } = this.props;
 
-	if ( component.commentCount )
-		show = true;
+		let show = false;
 
-	return (
-		<footer className="footer is-bordered" style={ { padding: 0 } }>
-			<div className="container">
-				<div className="content">
-					<div className="columns" style={ { marginLeft: 0, marginRight: 0 } } >
-						<div className="column is-narrow">
-							<b>Criado em: </b>{ new Date( component.timestamp ).toDateString() }
-						</div>
-						<div className="column is-narrow">
-							<b>Score: </b>{ component.voteScore }
-						</div>
-						{ show  && (
-							<div className="column">
-								<b>Num. Comentários: </b>{ component.commentCount }
+		if ( component.commentCount )
+			show = true;
+
+		return (
+			<footer className="footer is-bordered" style={ { padding: 0 } }>
+				<div className="container">
+					<div className="content">
+						<div className="columns" style={ { marginLeft: 0, marginRight: 0 } } >
+							<div className="column is-narrow">
+								<b>Criado em: </b>{ new Date( component.timestamp ).toDateString() }
 							</div>
-						) }
+							<div className="column is-narrow">
+								<b>Score: </b>{ component.voteScore }
+							</div>
+							{ show  && (
+								<div className="column">
+									<b>Num. Comentários: </b>{ component.commentCount }
+								</div>
+							) }
+						</div>
 					</div>
 				</div>
-			</div>
-		</footer>
-	);
+			</footer>
+		);
+	}
 }
 
-export default Infos;
+export default connect()( Infos );

@@ -39,8 +39,8 @@ export const voteCommentsEpic = ( action$, store ) => {
 export const delCommentsEpic = ( action$, store ) => {
 	return action$.ofType( CommentsActions.DEL_COMMENT )
 		.mergeMap( action => {
-			return ServerAPI.deleteComment( action.comment ).map( p =>  {
-				return {type: CommentsActions.DEL_COMMENT_REP, comment: p.response } } )
+			return ServerAPI.deleteComment( action.comment ).map( c =>  {
+				return {type: CommentsActions.DEL_COMMENT_REP, comment: c.response } } )
 		})
 }
 
@@ -76,6 +76,13 @@ export const delPostEpic = ( action$, store ) => {
 		})
 }
 
+export const delAllCommentsOfPostEpic = ( action$, store ) => {
+	return action$.ofType( PostsActions.DEL_POST_REP )
+		.mergeMap( action => {
+			return store.getState().comments[ action.post.id ].map( comment => {
+				return {type: CommentsActions.DEL_COMMENT , comment: comment.id } } )
+		} )
+}
 
 const rootEpic = combineEpics(
 	loadPostsEpic,
@@ -86,7 +93,8 @@ const rootEpic = combineEpics(
 	initCommentsEpic,
 	voteCommentsEpic,
 	delCommentsEpic,
-	addCommentsEpic
+	addCommentsEpic,
+	delAllCommentsOfPostEpic
   );
 
   export default rootEpic;

@@ -20,7 +20,7 @@ class ListPosts extends Component {
 				<div  className="media">
 					<div className="media-left" />
 					<div className="media-content" style={ { overflow: "visible"} } >
-						{ this.props.posts && this.props.posts.map( ( post, order ) =>  ( <Post id={ post.id }  key={ post.id } /> ) ) }
+						{ this.props.posts && this.props.posts.map( ( post, order ) =>  ( <Post id={ post.id }  key={ `${ post.id }-${ post.voteScore }-${ post.commentCount }` } /> ) ) }
 					</div>
 
 					<div className="media-right">
@@ -43,6 +43,7 @@ function mapStateToProps( currentState, props ) {
 
 	if ( category === undefined || category === '' ) {
 		posts = posts.slice( 0 );
+		
 		posts.sort( sortBy( order ) );
 
 		return  { posts, category } ;
