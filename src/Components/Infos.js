@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 class Infos extends Component {
 
 	render() {
-		console.log( "Infos", this.props.component );
-
 		const { component } = this.props;
 
 		let show = false;

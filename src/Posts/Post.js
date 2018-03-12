@@ -28,21 +28,23 @@ class Post extends Component{
 
 		const form = modal.querySelector( "form" );
 
+		const { post } = this.props;
+
 		for( const data of form ) {
 
 			switch( data.name ) {
 				case "title" :
-					data.value = this.props.post.title;
+					data.value = post.title;
 
 					break;
 				
 				case "body" :
-					data.value = this.props.post.body;
+					data.value = post.body;
 
 					break;
 				
 				case "id" :
-					data.value = this.props.post.id;
+					data.value = post.id;
 					
 					break;
 			}
@@ -66,15 +68,22 @@ class Post extends Component{
 
 	componentWillMount () {
 		if ( !this.props.post ) {
-			console.log( "Entrou if" );
 			ServerApi.getPostDetails( this.props.match.params.id ).then( p => {
-				if ( p.id )
+				if ( p.id ) {
 					this.setState( { post: p } );
+				}
 			} );
 		} else {
-			console.log( "Entrou else" );
-			this.setState( { post: this.props.post } );
+			if ( this.state.post !== this.props.post ) {
+				this.setState( { post: this.props.post } );
+			}
 		}
+	}
+
+
+	componentWillReceiveProps ( nextProps ) {
+		if ( nextProps.post !== this.props.post )
+			this.setState( { post: nextProps.post } );
 	}
 
 	render() {
@@ -89,7 +98,6 @@ class Post extends Component{
 			details = true;
 		}
 
-		console.log( "renderizou" );
 		return post ? (
 			<div className="tile is-ancestor">
 				<article className="tile is-child box notification ">
@@ -105,9 +113,7 @@ class Post extends Component{
 						<p>{ post.body }</p>
 					</div>
 
-					{/* { details &&   */
-					console.log( "Post", post )
-					}
+					{/* { details &&   */ }
 						<Infos component={ post } />
 					{/* ) }  */}
 
@@ -149,9 +155,7 @@ function mapStateToProps( { posts }, currentProps ) {
 		id = currentProps.match.params.id ;
 
 	const visiblePost = posts.find( p => p.id === id );
-
-	console.log( "Selecionado", visiblePost );
-
+	
 	return { post: visiblePost };
 }
 

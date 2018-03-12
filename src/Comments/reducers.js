@@ -47,15 +47,6 @@ export const comments = ( state = {} , action ) => {
 				[action.comment.parentId] : state[action.comment.parentId].filter( c => c.id !== action.comment.id )
 			}
 
-		/* case DEL_POST_REP :
-			console.log( state );
-			novoState = { ...state };
-			delete novoState[ action.post.id ];
-			
-			console.log( novoState );
-
-			return novoState; */
-
 		default :
 			return state;
 	}

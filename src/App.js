@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ListPosts from './Posts/ListPosts';
 import Post from './Posts/Post';
 import FormEditComment from './Comments/FormEditComment';
+import FormEditPost from './Posts/FormEditPost';
 
 import ServerAPI from './api/ServerAPI';
 
@@ -87,6 +88,7 @@ class App extends Component {
 				
 				<Route exact path="/" component={ ListPosts } />
 				<FormEditComment />
+				<FormEditPost />
 			</div>
 		);
 	}
